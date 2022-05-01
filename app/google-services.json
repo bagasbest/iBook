@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "613060848012",
+    "project_id": "ibook-c280f",
+    "storage_bucket": "ibook-c280f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613060848012:android:9285e95923108632740ea9",
+        "android_client_info": {
+          "package_name": "com.project.ibook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "613060848012-tnb1np73le3ttqpvpish6hslfa9naskq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3uOAb_sQphTjhANHcimuF6zgBAw7A7l0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613060848012-tnb1np73le3ttqpvpish6hslfa9naskq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

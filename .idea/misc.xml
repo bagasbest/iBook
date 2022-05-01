@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/drawable/bg_login.xml" value="0.177" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/drawable/bg_rounded.xml" value="0.177" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/drawable/bg_rounded_btn.xml" value="0.177" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_homepage.xml" value="0.23645833333333333" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_main.xml" value="0.23645833333333333" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_register.xml" value="0.23645833333333333" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_splash_screen.xml" value="0.23645833333333333" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/item_novel_vertical.xml" value="0.23645833333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
