@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16sp"
+    android:background="@color/orange"
+    tools:context=".books.write.WriteActivity">
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="35dp"
+        android:layout_height="35sp"
+        android:contentDescription="@string/image"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16sp"
+        android:text="Tulis Novel Baru"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/backButton"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
+        app:layout_constraintTop_toTopOf="@+id/backButton" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backButton">
+
+        <EditText
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:inputType="textCapWords"
+            android:background="@drawable/bg_rounded_btn"
+            android:backgroundTint="@color/white"
+            android:hint="Judul Novel"
+            android:paddingStart="16sp"
+            android:paddingEnd="16sp"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/genre"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="16sp"
+            android:inputType="textCapWords"
+            android:background="@drawable/bg_rounded_btn"
+            android:backgroundTint="@color/white"
+            android:hint="Genre Novel (Contoh: Drama, Romance)"
+            android:paddingStart="16sp"
+            android:paddingEnd="16sp"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/sinopsis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Sinopsis Novel"
+            android:layout_marginTop="16sp"
+            android:paddingEnd="16sp"
+            android:paddingTop="16sp"
+            android:gravity="top|start"
+            android:paddingStart="16sp"
+            android:background="@drawable/bg_rounded_btn"
+            android:backgroundTint="@color/white"
+            android:inputType="textMultiLine"
+            android:lines="10"
+            android:singleLine="false" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unggah Cover Novel"
+            android:layout_marginTop="16sp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16sp"
+            android:layout_height="wrap_content">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/image"
+                android:layout_width="150dp"
+                android:layout_height="170dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius="10dp" />
+
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/imageHint"
+                android:src="@drawable/ic_photo_camera_black_48dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="16sp"
+            android:layout_marginBottom="16sp"
+            android:background="#EAEAEA" />
+
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

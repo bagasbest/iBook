@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
+import com.project.ibook.books.my_book.MyBookActivity
 import com.project.ibook.databinding.ActivityHomepageBinding
+import com.project.ibook.search.SearchActivity
 
 class HomepageActivity : AppCompatActivity() {
 
@@ -18,6 +20,14 @@ class HomepageActivity : AppCompatActivity() {
 
         binding?.logoutBtn?.setOnClickListener {
             logout()
+        }
+
+        binding?.searchBtn?.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }
+
+        binding?.write?.setOnClickListener {
+            startActivity(Intent(this, MyBookActivity::class.java))
         }
 
     }
