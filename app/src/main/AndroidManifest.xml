@@ -14,6 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IBook">
         <activity
+            android:name=".books.my_book.MyBookBabAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".books.my_book.MyBookBabDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".books.write.WriteNovelActivity"
+            android:exported="false" />
+        <activity
             android:name=".books.write.WriteActivity"
             android:exported="false" />
         <activity
