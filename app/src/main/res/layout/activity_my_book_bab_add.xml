@@ -100,7 +100,7 @@
                 android:background="@drawable/bg_rounded_btn"
                 android:backgroundTint="@color/white"
                 android:gravity="top|start"
-                android:hint="Sinopsis Novel"
+                android:hint="Mulai menulis karyamu..."
                 android:inputType="textMultiLine"
                 android:lines="20"
                 android:paddingStart="16sp"

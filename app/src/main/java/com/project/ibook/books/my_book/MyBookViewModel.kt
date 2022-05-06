@@ -33,6 +33,7 @@ class MyBookViewModel  : ViewModel() {
                         model.genre = document.data["genre"].toString()
                         model.image = document.data["image"].toString()
                         model.viewTime = document.data["viewTime"] as Long
+                        model.babList = document.toObject(MyBookModel::class.java).babList
 
                         listData.add(model)
                     }
