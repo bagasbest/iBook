@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#EAEAEA"
-    tools:context=".books.write.WriteNovelActivity">
+    tools:context=".books.other.NovelDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,29 +25,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/black" />
 
-
-        <ImageView
-            android:id="@+id/edit"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="16sp"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_baseline_edit_24"
-            android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@+id/delete"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/orange" />
-
-        <ImageView
-            android:id="@+id/delete"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="16sp"
-            android:visibility="gone"
-            android:layout_marginEnd="16sp"
-            android:src="@drawable/ic_baseline_delete_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
 
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -170,39 +147,15 @@
                 android:background="#EAEAEA"
                 android:layout_marginTop="16sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:orientation="horizontal">
-
-
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16sp"
-                    android:layout_weight="2"
-                    android:layout_marginTop="16sp"
-                    android:text="Pilih bab dan mulai membaca"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:visibility="gone"
-                    android:layout_marginEnd="16sp"
-                    android:layout_marginTop="18dp"
-                    android:background="@drawable/bg_rounded_btn"
-                    android:text="+ Bab Baru"
-                    android:id="@+id/addNewBab" />
-
-            </LinearLayout>
-
+                android:layout_marginStart="16sp"
+                android:layout_marginTop="16sp"
+                android:text="Pilih bab dan mulai membaca"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -218,7 +171,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:listitem="@layout/item_bab" />
-
 
                 <TextView
                     android:layout_width="wrap_content"

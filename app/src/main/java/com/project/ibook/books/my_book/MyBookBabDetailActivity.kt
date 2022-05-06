@@ -9,9 +9,11 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.project.ibook.HomepageActivity
+import com.project.ibook.R
 import com.project.ibook.databinding.ActivityMyBookBabDetailBinding
 
 class MyBookBabDetailActivity : AppCompatActivity() {
@@ -69,7 +71,67 @@ class MyBookBabDetailActivity : AppCompatActivity() {
             finish()
         }
 
+        binding?.delete?.setOnClickListener {
+            showConfirmDeleteDialog()
+        }
+    }
 
+    private fun showConfirmDeleteDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Konfimasi Menghapus Bab Ini")
+            .setMessage("Apakah anda yakin ingin menghapus bab ini ?")
+            .setIcon(R.drawable.ic_baseline_warning_24)
+            .setPositiveButton("YA") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+                deleteNovel()
+            }
+            .setNegativeButton("TIDAK", null)
+            .show()
+    }
+
+    private fun deleteNovel() {
+        val babNo = intent.getIntExtra(BAB_NO, 0)
+        babList?.removeAt(babNo)
+
+        FirebaseFirestore
+            .getInstance()
+            .collection("novel")
+            .document(intent.getStringExtra(NOVEL_ID)!!)
+            .update("babList", babList)
+            .addOnCompleteListener {
+                if(it.isSuccessful) {
+                    showSuccessDialog()
+                } else {
+                    showFailureDialog()
+                }
+            }
+    }
+
+
+    private fun showFailureDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Gagal Menghapus Bab Ini")
+            .setMessage("Ups, sepertinya koneksi internet anda tidak stabil, silahkan coba lagi nanti")
+            .setIcon(R.drawable.ic_baseline_clear_24)
+            .setPositiveButton("OKE") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            .show()
+    }
+
+    private fun showSuccessDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Berhasil Menghapus Bab Ini")
+            .setMessage("Bab Ini berhasil di hapus")
+            .setIcon(R.drawable.ic_baseline_check_circle_outline_24)
+            .setPositiveButton("OKE") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+                val intent = Intent(this, HomepageActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }
+            .show()
     }
 
     private fun formValidation() {
@@ -146,5 +208,6 @@ class MyBookBabDetailActivity : AppCompatActivity() {
         const val BAB_LIST = "babList"
         const val NOVEL_ID = "novelId"
         const val WRITER_ID = "writerId"
+        const val BAB_NO = "babNo"
     }
 }

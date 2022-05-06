@@ -14,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IBook">
         <activity
+            android:name=".books.other.NovelReadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".books.other.NovelDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".books.my_book.MyBookEditActivity"
             android:exported="false" />
         <activity

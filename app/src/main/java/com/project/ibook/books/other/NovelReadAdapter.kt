@@ -1,17 +1,16 @@
-package com.project.ibook.books.my_book
+package com.project.ibook.books.other
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.project.ibook.books.my_book.MyBookBabModel
 import com.project.ibook.databinding.ItemBabBinding
 
-class MyBookBabAdapter(
+class NovelReadAdapter(
     private var babList: ArrayList<MyBookBabModel>,
-    private val novelId: String?,
-    private val writerUid: String?
-) : RecyclerView.Adapter<MyBookBabAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<NovelReadAdapter.ViewHolder>() {
 
 
     inner class ViewHolder(private val binding: ItemBabBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -23,12 +22,8 @@ class MyBookBabAdapter(
                 descBab.text = model.description
 
                 cv.setOnClickListener {
-                    val intent = Intent(itemView.context, MyBookBabDetailActivity::class.java)
-                    intent.putExtra(MyBookBabDetailActivity.EXTRA_DATA, model)
-                    intent.putExtra(MyBookBabDetailActivity.BAB_LIST, babList)
-                    intent.putExtra(MyBookBabDetailActivity.NOVEL_ID, novelId)
-                    intent.putExtra(MyBookBabDetailActivity.WRITER_ID, writerUid)
-                    intent.putExtra(MyBookBabDetailActivity.BAB_NO, adapterPosition)
+                    val intent = Intent(itemView.context, NovelReadActivity::class.java)
+                    intent.putExtra(NovelReadActivity.EXTRA_DATA, model)
                     itemView.context.startActivity(intent)
                 }
             }

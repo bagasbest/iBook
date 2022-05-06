@@ -38,6 +38,7 @@ class WriteNovelActivity : AppCompatActivity() {
         binding?.genre?.text = "Genre: ${model?.genre}"
         binding?.synopsis?.text = model?.synopsis
         binding?.viewTime?.text = "${model?.viewTime}\nKali Dilihat"
+        getWordCountNovel(model?.babList!!)
 
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
         if(model?.writerUid == uid) {
@@ -66,7 +67,16 @@ class WriteNovelActivity : AppCompatActivity() {
         binding?.delete?.setOnClickListener {
             showConfirmDeleteDialog()
         }
+    }
 
+    @SuppressLint("SetTextI18n")
+    private fun getWordCountNovel(babList: ArrayList<MyBookBabModel>) {
+        var wordCount = 0L
+        for(i in babList.indices) {
+            val description = babList[i].description.toString().trim()
+            wordCount += description.split("\\s+".toRegex()).size
+        }
+        binding?.wordCount?.text = "$wordCount\nKata"
     }
 
     private fun showConfirmDeleteDialog() {
