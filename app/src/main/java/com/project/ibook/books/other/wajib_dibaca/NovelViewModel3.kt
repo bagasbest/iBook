@@ -1,4 +1,4 @@
-package com.project.ibook.books.other
+package com.project.ibook.books.other.wajib_dibaca
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,22 +6,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 
-class NovelViewModel2 : ViewModel() {
+class NovelViewModel3 : ViewModel() {
 
-    private val bookList = MutableLiveData<ArrayList<NovelModel2>>()
-    private val listData = ArrayList<NovelModel2>()
-    private val TAG = NovelViewModel2::class.java.simpleName
+    private val bookList = MutableLiveData<ArrayList<NovelModel3>>()
+    private val listData = ArrayList<NovelModel3>()
+    private val TAG = NovelViewModel3::class.java.simpleName
 
 
-    fun setListBookByiBookChoiceAll() {
+    fun setListBookByMustReadAll() {
         listData.clear()
 
         try {
-            FirebaseFirestore.getInstance().collection("iBook_choice")
+            FirebaseFirestore.getInstance().collection("must_read")
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
-                        val model = NovelModel2()
+                        val model = NovelModel3()
 
                         model.title = document.data["title"].toString()
                         model.uid = document.data["uid"].toString()
@@ -32,7 +32,7 @@ class NovelViewModel2 : ViewModel() {
                         model.genre = document.data["genre"].toString()
                         model.image = document.data["image"].toString()
                         model.viewTime = document.data["viewTime"] as Long
-                        model.babList = document.toObject(NovelModel2::class.java).babList
+                        model.babList = document.toObject(NovelModel3::class.java).babList
 
                         listData.add(model)
                     }
@@ -46,16 +46,16 @@ class NovelViewModel2 : ViewModel() {
         }
     }
 
-    fun setListBookByiBookChoiceLimited() {
+    fun setListBookByMustReadLimited() {
         listData.clear()
 
         try {
-            FirebaseFirestore.getInstance().collection("iBook_choice")
+            FirebaseFirestore.getInstance().collection("must_read")
                 .limit(10)
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
-                        val model = NovelModel2()
+                        val model = NovelModel3()
 
                         model.title = document.data["title"].toString()
                         model.uid = document.data["uid"].toString()
@@ -66,7 +66,7 @@ class NovelViewModel2 : ViewModel() {
                         model.genre = document.data["genre"].toString()
                         model.image = document.data["image"].toString()
                         model.viewTime = document.data["viewTime"] as Long
-                        model.babList = document.toObject(NovelModel2::class.java).babList
+                        model.babList = document.toObject(NovelModel3::class.java).babList
 
                         listData.add(model)
                     }
@@ -81,9 +81,8 @@ class NovelViewModel2 : ViewModel() {
     }
 
 
-    fun getBook() : LiveData<ArrayList<NovelModel2>> {
+    fun getBook() : LiveData<ArrayList<NovelModel3>> {
         return bookList
     }
-
 
 }

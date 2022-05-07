@@ -1,19 +1,19 @@
-package com.project.ibook.search
+package com.project.ibook.books.other.anda_mungkin_suka
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.project.ibook.books.other.anda_mungkin_suka.NovelModel5
 
-class SearchViewModel  :ViewModel() {
+class NovelViewModel5 : ViewModel() {
 
-    private val novelList = MutableLiveData<ArrayList<NovelModel5>>()
+    private val bookList = MutableLiveData<ArrayList<NovelModel5>>()
     private val listData = ArrayList<NovelModel5>()
-    private val TAG = SearchViewModel::class.java.simpleName
+    private val TAG = NovelViewModel5::class.java.simpleName
 
-    fun setNovel() {
+
+    fun setListBookAll() {
         listData.clear()
 
         try {
@@ -36,7 +36,7 @@ class SearchViewModel  :ViewModel() {
 
                         listData.add(model)
                     }
-                    novelList.postValue(listData)
+                    bookList.postValue(listData)
                 }
                 .addOnFailureListener { exception ->
                     Log.w(TAG, "Error getting documents: ", exception)
@@ -46,13 +46,12 @@ class SearchViewModel  :ViewModel() {
         }
     }
 
-    fun setNovelByQuery(executedQuery: String) {
+    fun setListBookLimited() {
         listData.clear()
 
         try {
             FirebaseFirestore.getInstance().collection("novel")
-                .whereGreaterThanOrEqualTo("titleTemp", executedQuery)
-                .whereLessThanOrEqualTo("titleTemp", executedQuery + '\uf8ff')
+                .limit(10)
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
@@ -71,7 +70,7 @@ class SearchViewModel  :ViewModel() {
 
                         listData.add(model)
                     }
-                    novelList.postValue(listData)
+                    bookList.postValue(listData)
                 }
                 .addOnFailureListener { exception ->
                     Log.w(TAG, "Error getting documents: ", exception)
@@ -83,7 +82,8 @@ class SearchViewModel  :ViewModel() {
 
 
     fun getBook() : LiveData<ArrayList<NovelModel5>> {
-        return novelList
+        return bookList
     }
+
 
 }

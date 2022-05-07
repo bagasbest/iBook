@@ -5,7 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.project.ibook.books.my_book.MyBookBabModel
+import com.project.ibook.books.my_book.add_edit_bab_novel.MyBookBabModel
 import com.project.ibook.databinding.ItemBabBinding
 
 class NovelReadAdapter(

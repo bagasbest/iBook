@@ -1,11 +1,11 @@
-package com.project.ibook.books.other
+package com.project.ibook.books.other.anda_mungkin_suka
 
 import android.os.Parcelable
-import com.project.ibook.books.my_book.MyBookBabModel
+import com.project.ibook.books.my_book.add_edit_bab_novel.MyBookBabModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class NovelModel2(
+data class NovelModel5(
     var title: String? = null,
     var uid: String? = null,
     var synopsis: String? = null,

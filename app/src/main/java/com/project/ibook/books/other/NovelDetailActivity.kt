@@ -6,7 +6,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.project.ibook.books.my_book.MyBookBabModel
+import com.project.ibook.books.my_book.add_edit_bab_novel.MyBookBabModel
+import com.project.ibook.books.other.anda_mungkin_suka.NovelModel5
 import com.project.ibook.databinding.ActivityNovelDetailBinding
 
 class NovelDetailActivity : AppCompatActivity() {

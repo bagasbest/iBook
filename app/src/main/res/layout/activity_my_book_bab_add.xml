@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B36F0B"
-    tools:context=".books.my_book.MyBookBabAddActivity">
+    tools:context=".books.my_book.add_edit_bab_novel.MyBookBabAddActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

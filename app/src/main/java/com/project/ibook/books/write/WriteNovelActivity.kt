@@ -13,6 +13,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.project.ibook.HomepageActivity
 import com.project.ibook.R
 import com.project.ibook.books.my_book.*
+import com.project.ibook.books.my_book.add_edit_bab_novel.MyBookBabAdapter
+import com.project.ibook.books.my_book.add_edit_bab_novel.MyBookBabAddActivity
+import com.project.ibook.books.my_book.add_edit_bab_novel.MyBookBabModel
 import com.project.ibook.databinding.ActivityWriteNovelBinding
 
 class WriteNovelActivity : AppCompatActivity() {

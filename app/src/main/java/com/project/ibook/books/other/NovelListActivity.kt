@@ -4,6 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.project.ibook.books.other.anda_mungkin_suka.NovelModel5
+import com.project.ibook.books.other.cinta_abadi.NovelModel4
+import com.project.ibook.books.other.pilihan_iBook.NovelModel2
+import com.project.ibook.books.other.terlaris.NovelModel1
+import com.project.ibook.books.other.wajib_dibaca.NovelModel3
 import com.project.ibook.databinding.ActivityNovelListBinding
 
 class NovelListActivity : AppCompatActivity() {

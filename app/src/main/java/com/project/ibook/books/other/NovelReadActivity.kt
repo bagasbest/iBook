@@ -2,7 +2,7 @@ package com.project.ibook.books.other
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.project.ibook.books.my_book.MyBookBabModel
+import com.project.ibook.books.my_book.add_edit_bab_novel.MyBookBabModel
 import com.project.ibook.databinding.ActivityNovelReadBinding
 
 class NovelReadActivity : AppCompatActivity() {

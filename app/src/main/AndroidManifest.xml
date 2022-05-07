@@ -26,10 +26,10 @@
             android:name=".books.my_book.MyBookEditActivity"
             android:exported="false" />
         <activity
-            android:name=".books.my_book.MyBookBabAddActivity"
+            android:name=".books.my_book.add_edit_bab_novel.MyBookBabAddActivity"
             android:exported="false" />
         <activity
-            android:name=".books.my_book.MyBookBabDetailActivity"
+            android:name=".books.my_book.add_edit_bab_novel.MyBookBabDetailActivity"
             android:exported="false" />
         <activity
             android:name=".books.write.WriteNovelActivity"

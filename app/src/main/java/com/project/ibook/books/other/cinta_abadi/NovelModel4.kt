@@ -1,7 +1,7 @@
-package com.project.ibook.books.other
+package com.project.ibook.books.other.cinta_abadi
 
 import android.os.Parcelable
-import com.project.ibook.books.my_book.MyBookBabModel
+import com.project.ibook.books.my_book.add_edit_bab_novel.MyBookBabModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

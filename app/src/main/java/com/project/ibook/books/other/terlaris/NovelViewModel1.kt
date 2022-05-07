@@ -1,27 +1,27 @@
-package com.project.ibook.search
+package com.project.ibook.books.other.terlaris
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.project.ibook.books.other.anda_mungkin_suka.NovelModel5
 
-class SearchViewModel  :ViewModel() {
+class NovelViewModel1 : ViewModel() {
 
-    private val novelList = MutableLiveData<ArrayList<NovelModel5>>()
-    private val listData = ArrayList<NovelModel5>()
-    private val TAG = SearchViewModel::class.java.simpleName
+    private val bookList = MutableLiveData<ArrayList<NovelModel1>>()
+    private val listData = ArrayList<NovelModel1>()
+    private val TAG = NovelViewModel1::class.java.simpleName
 
-    fun setNovel() {
+
+    fun setListBookByFamousAll() {
         listData.clear()
 
         try {
-            FirebaseFirestore.getInstance().collection("novel")
+            FirebaseFirestore.getInstance().collection("famous")
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
-                        val model = NovelModel5()
+                        val model = NovelModel1()
 
                         model.title = document.data["title"].toString()
                         model.uid = document.data["uid"].toString()
@@ -32,11 +32,11 @@ class SearchViewModel  :ViewModel() {
                         model.genre = document.data["genre"].toString()
                         model.image = document.data["image"].toString()
                         model.viewTime = document.data["viewTime"] as Long
-                        model.babList = document.toObject(NovelModel5::class.java).babList
+                        model.babList = document.toObject(NovelModel1::class.java).babList
 
                         listData.add(model)
                     }
-                    novelList.postValue(listData)
+                    bookList.postValue(listData)
                 }
                 .addOnFailureListener { exception ->
                     Log.w(TAG, "Error getting documents: ", exception)
@@ -46,17 +46,16 @@ class SearchViewModel  :ViewModel() {
         }
     }
 
-    fun setNovelByQuery(executedQuery: String) {
+    fun setListBookByFamousLimited() {
         listData.clear()
 
         try {
-            FirebaseFirestore.getInstance().collection("novel")
-                .whereGreaterThanOrEqualTo("titleTemp", executedQuery)
-                .whereLessThanOrEqualTo("titleTemp", executedQuery + '\uf8ff')
+            FirebaseFirestore.getInstance().collection("famous")
+                .limit(10)
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
-                        val model = NovelModel5()
+                        val model = NovelModel1()
 
                         model.title = document.data["title"].toString()
                         model.uid = document.data["uid"].toString()
@@ -67,11 +66,11 @@ class SearchViewModel  :ViewModel() {
                         model.genre = document.data["genre"].toString()
                         model.image = document.data["image"].toString()
                         model.viewTime = document.data["viewTime"] as Long
-                        model.babList = document.toObject(NovelModel5::class.java).babList
+                        model.babList = document.toObject(NovelModel1::class.java).babList
 
                         listData.add(model)
                     }
-                    novelList.postValue(listData)
+                    bookList.postValue(listData)
                 }
                 .addOnFailureListener { exception ->
                     Log.w(TAG, "Error getting documents: ", exception)
@@ -82,8 +81,7 @@ class SearchViewModel  :ViewModel() {
     }
 
 
-    fun getBook() : LiveData<ArrayList<NovelModel5>> {
-        return novelList
+    fun getBook() : LiveData<ArrayList<NovelModel1>> {
+        return bookList
     }
-
 }
