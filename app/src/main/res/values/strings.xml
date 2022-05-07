@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">iBook</string>
     <string name="image">image</string>
+
+    <string-array name="novel_status">
+        <item>Draft (Novel belum di publikasikan)</item>
+        <item>Published (Novel akan di publikasikan)</item>
+    </string-array>
+
+    <string-array name="bab_status">
+        <item>Draft (Bab belum di publikasikan)</item>
+        <item>Published (Bab akan di publikasikan)</item>
+    </string-array>
 </resources>

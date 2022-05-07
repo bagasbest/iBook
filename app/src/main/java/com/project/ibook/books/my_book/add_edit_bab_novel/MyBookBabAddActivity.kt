@@ -6,10 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.project.ibook.HomepageActivity
+import com.project.ibook.R
 import com.project.ibook.databinding.ActivityMyBookBabAddBinding
 
 class MyBookBabAddActivity : AppCompatActivity() {
@@ -18,6 +20,7 @@ class MyBookBabAddActivity : AppCompatActivity() {
     private var babList: ArrayList<MyBookBabModel>? = null
     private var newBabList = ArrayList<MyBookBabModel>()
     private var isReadMode = false
+    private var babStatus: String? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +29,8 @@ class MyBookBabAddActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         babList = intent.getParcelableArrayListExtra(BAB_LIST)
+
+        showDropdownBabStatus()
 
         if(babList == null) {
             binding?.textView3?.text = "Menulis Bab 1"
@@ -61,6 +66,25 @@ class MyBookBabAddActivity : AppCompatActivity() {
         }
     }
 
+    private fun showDropdownBabStatus() {
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.bab_status, android.R.layout.simple_list_item_1
+        )
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        // Apply the adapter to the spinner
+        binding?.babStatus?.setAdapter(adapter)
+        binding?.babStatus?.setOnItemClickListener { _, _, _, _ ->
+            val status = binding?.babStatus!!.text.toString()
+            babStatus = if(status == "Draft (Bab belum di publikasikan)") {
+                "Draft"
+            } else {
+                "Published"
+            }
+        }
+    }
+
     private fun formValidation() {
         val title = binding?.title?.text.toString().trim()
         val description = binding?.sinopsis?.text.toString().trim()
@@ -71,6 +95,9 @@ class MyBookBabAddActivity : AppCompatActivity() {
             }
             description.isEmpty() -> {
                 Toast.makeText(this, "Isi bab tidak boleh kosong!", Toast.LENGTH_SHORT).show()
+            }
+            babStatus == null -> {
+                Toast.makeText(this, "Anda harus memilih status bab ini", Toast.LENGTH_SHORT).show()
             }
             else -> {
 
@@ -85,7 +112,8 @@ class MyBookBabAddActivity : AppCompatActivity() {
                 val model = MyBookBabModel(
                     uid = uid,
                     title = title,
-                    description = description
+                    description = description,
+                    status = babStatus,
                 )
 
 

@@ -3,6 +3,7 @@ package com.project.ibook.books.other
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -73,10 +74,22 @@ class NovelDetailActivity : AppCompatActivity() {
         if(model5?.babList == null) {
             binding?.noData?.visibility = View.VISIBLE
         } else {
-            binding?.rvBab?.layoutManager = LinearLayoutManager(this)
-            binding?.bab?.text = "${model5?.babList?.size}\nBab"
-            adapter = NovelReadAdapter(model5?.babList!!)
-            binding?.rvBab?.adapter = adapter
+            val publishedBab = ArrayList<MyBookBabModel>()
+            binding?.progressBar?.visibility = View.VISIBLE
+
+            for(i in model5?.babList!!.indices) {
+                if(model5?.babList!![i].status == "Published") {
+                    publishedBab.add(model5?.babList!![i])
+                }
+            }
+
+            Handler().postDelayed({
+                binding?.progressBar?.visibility = View.GONE
+                binding?.rvBab?.layoutManager = LinearLayoutManager(this)
+                binding?.bab?.text = "${publishedBab.size}\nBab"
+                adapter = NovelReadAdapter(publishedBab)
+                binding?.rvBab?.adapter = adapter
+            }, 2000)
         }
     }
 

@@ -3,7 +3,9 @@ package com.project.ibook.books.my_book.add_edit_bab_novel
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.project.ibook.databinding.ItemBabBinding
 
@@ -19,8 +21,18 @@ class MyBookBabAdapter(
         fun bind(model: MyBookBabModel) {
             with(binding) {
 
+                backgroudStatus.visibility = View.VISIBLE
                 titleBab.text = model.title
                 descBab.text = model.description
+                status.text = model.status
+
+
+                if(model.status == "Draft") {
+                    backgroudStatus.backgroundTintList = ContextCompat.getColorStateList(itemView.context, android.R.color.holo_red_light)
+                } else {
+                    backgroudStatus.backgroundTintList = ContextCompat.getColorStateList(itemView.context, android.R.color.holo_green_dark)
+                }
+
 
                 cv.setOnClickListener {
                     val intent = Intent(itemView.context, MyBookBabDetailActivity::class.java)

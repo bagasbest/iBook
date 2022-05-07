@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
@@ -22,6 +23,7 @@ class MyBookEditActivity : AppCompatActivity() {
     private var model: MyBookModel? = null
     private var image: String? = null
     private val REQUEST_IMAGE_GALLERY = 1001
+    private var novelStatus : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,7 @@ class MyBookEditActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         model = intent.getParcelableExtra(EXTRA_DATA)
+        novelStatus = model?.status
         image = model?.image
         Glide.with(this)
             .load(image)
@@ -37,6 +40,8 @@ class MyBookEditActivity : AppCompatActivity() {
         binding?.title?.setText(model?.title)
         binding?.sinopsis?.setText(model?.synopsis)
         binding?.genre?.setText(model?.genre)
+
+        showDropdownNovelStatus()
 
         binding?.backButton?.setOnClickListener {
             onBackPressed()
@@ -51,6 +56,25 @@ class MyBookEditActivity : AppCompatActivity() {
                 .galleryOnly()
                 .compress(1024)
                 .start(REQUEST_IMAGE_GALLERY)
+        }
+    }
+
+    private fun showDropdownNovelStatus() {
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.novel_status, android.R.layout.simple_list_item_1
+        )
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        // Apply the adapter to the spinner
+        binding?.novelStatus?.setAdapter(adapter)
+        binding?.novelStatus?.setOnItemClickListener { _, _, _, _ ->
+           val status = binding?.novelStatus!!.text.toString()
+            novelStatus = if(status == "Draft (Novel belum di publikasikan)") {
+                "Draft"
+            } else {
+                "Published"
+            }
         }
     }
 
@@ -80,6 +104,7 @@ class MyBookEditActivity : AppCompatActivity() {
                     "genre" to genre,
                     "synopsis" to synopsis,
                     "image" to image,
+                    "status" to novelStatus,
                 )
 
                 FirebaseFirestore

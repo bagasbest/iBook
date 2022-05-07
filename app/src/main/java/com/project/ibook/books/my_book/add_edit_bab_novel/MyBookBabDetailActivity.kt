@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
@@ -22,6 +23,7 @@ class MyBookBabDetailActivity : AppCompatActivity() {
     private var myBookBabModel: MyBookBabModel? = null
     private var babList: ArrayList<MyBookBabModel>? = null
     private var newBabList = ArrayList<MyBookBabModel>()
+    private var babStatus: String? = null
 
     private var isReadMode = true
 
@@ -41,10 +43,13 @@ class MyBookBabDetailActivity : AppCompatActivity() {
             binding?.description?.text = myBookBabModel?.description
             binding?.title?.setText(myBookBabModel?.title)
             binding?.sinopsis?.setText(myBookBabModel?.description)
+            babStatus = myBookBabModel?.status
         } else {
             binding?.description?.visibility = View.VISIBLE
             binding?.description?.text = myBookBabModel?.description
         }
+
+        showDropdownBabStatus()
 
         binding?.saveDraft?.setOnClickListener {
             formValidation()
@@ -73,6 +78,25 @@ class MyBookBabDetailActivity : AppCompatActivity() {
 
         binding?.delete?.setOnClickListener {
             showConfirmDeleteDialog()
+        }
+    }
+
+    private fun showDropdownBabStatus() {
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.bab_status, android.R.layout.simple_list_item_1
+        )
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        // Apply the adapter to the spinner
+        binding?.babStatus?.setAdapter(adapter)
+        binding?.babStatus?.setOnItemClickListener { _, _, _, _ ->
+            val status = binding?.babStatus!!.text.toString()
+            babStatus = if(status == "Draft (Bab belum di publikasikan)") {
+                "Draft"
+            } else {
+                "Published"
+            }
         }
     }
 
@@ -156,7 +180,8 @@ class MyBookBabDetailActivity : AppCompatActivity() {
                 val model = MyBookBabModel(
                     uid = uid,
                     title = title,
-                    description = description
+                    description = description,
+                    status = babStatus,
                 )
 
                 newBabList.addAll(babList!!)

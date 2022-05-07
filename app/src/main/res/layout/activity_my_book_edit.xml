@@ -124,6 +124,23 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout123"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <com.rosemaryapp.amazingspinner.AmazingSpinner
+                    android:id="@+id/novelStatus"
+                    style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/bg_rounded_btn"
+                    android:backgroundTint="@color/white"
+                    android:layout_height="wrap_content"
+                    android:hint="Status Novel" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="match_parent"
