@@ -10,10 +10,18 @@ import com.project.ibook.databinding.ItemNovelGridBinding
 import com.project.ibook.databinding.ItemNovelHorizontalBinding
 import com.project.ibook.databinding.ItemNovelVerticalBinding
 
-class NovelAdapter(private val novelList: ArrayList<NovelModel5>, private val option: String) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NovelAdapter(
+    private val novelList1: ArrayList<NovelModel1>,
+    private val novelList2: ArrayList<NovelModel2>,
+    private val novelList3: ArrayList<NovelModel3>,
+    private val novelList4: ArrayList<NovelModel4>,
+    private val novelList5: ArrayList<NovelModel5>,
+    private val option: String
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    inner class ViewHolderVertical(private val binding: ItemNovelVerticalBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolderVertical(private val binding: ItemNovelVerticalBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(model5: NovelModel5) {
             with(binding) {
@@ -33,37 +41,77 @@ class NovelAdapter(private val novelList: ArrayList<NovelModel5>, private val op
         }
     }
 
-    inner class ViewHolderHorizontal(private val binding: ItemNovelHorizontalBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolderHorizontal(private val binding: ItemNovelHorizontalBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(model5: NovelModel5) {
+        fun bind(model: NovelModel2) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load(model5.image)
+                    .load(model.image)
                     .into(image)
 
-                title.text = model5.title
+                title.text = model.title
                 cv.setOnClickListener {
                     val intent = Intent(itemView.context, NovelDetailActivity::class.java)
-                    intent.putExtra(NovelDetailActivity.EXTRA_DATA, model5)
+                    intent.putExtra(NovelDetailActivity.EXTRA_DATA, model)
                     itemView.context.startActivity(intent)
                 }
             }
         }
     }
 
-    inner class ViewHolderGrid(private val binding: ItemNovelGridBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolderHorizontal3(private val binding: ItemNovelHorizontalBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(model5: NovelModel5) {
+        fun bind(model: NovelModel3) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load(model5.image)
-                    .into(imageView)
+                    .load(model.image)
+                    .into(image)
 
-                title.text = model5.title
-                writer.text = model5.writerName
+                title.text = model.title
                 cv.setOnClickListener {
                     val intent = Intent(itemView.context, NovelDetailActivity::class.java)
-                    intent.putExtra(NovelDetailActivity.EXTRA_DATA, model5)
+                    intent.putExtra(NovelDetailActivity.EXTRA_DATA, model)
+                    itemView.context.startActivity(intent)
+                }
+            }
+        }
+    }
+
+    inner class ViewHolderHorizontal4(private val binding: ItemNovelHorizontalBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
+        fun bind(model: NovelModel4) {
+            with(binding) {
+                Glide.with(itemView.context)
+                    .load(model.image)
+                    .into(image)
+
+                title.text = model.title
+                cv.setOnClickListener {
+                    val intent = Intent(itemView.context, NovelDetailActivity::class.java)
+                    intent.putExtra(NovelDetailActivity.EXTRA_DATA, model)
+                    itemView.context.startActivity(intent)
+                }
+            }
+        }
+    }
+
+    inner class ViewHolderGrid(private val binding: ItemNovelGridBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
+        fun bind(model: NovelModel1) {
+            with(binding) {
+                Glide.with(itemView.context)
+                    .load(model.image)
+                    .into(imageView)
+
+                title.text = model.title
+                writer.text = model.writerName
+                cv.setOnClickListener {
+                    val intent = Intent(itemView.context, NovelDetailActivity::class.java)
+                    intent.putExtra(NovelDetailActivity.EXTRA_DATA, model)
                     intent.putExtra(NovelDetailActivity.OPTION, "5")
                     itemView.context.startActivity(intent)
                 }
@@ -72,29 +120,84 @@ class NovelAdapter(private val novelList: ArrayList<NovelModel5>, private val op
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if(option == "1") {
-            val binding = ItemNovelGridBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-             ViewHolderGrid(binding)
-        } else if (option == "2" || option == "3" || option == "4") {
-            val binding = ItemNovelHorizontalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            ViewHolderHorizontal(binding)
-        }
-        else {
-            val binding = ItemNovelVerticalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            ViewHolderVertical(binding)
+        return when (option) {
+            "1" -> {
+                val binding =
+                    ItemNovelGridBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                ViewHolderGrid(binding)
+            }
+            "2" -> {
+                val binding = ItemNovelHorizontalBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                ViewHolderHorizontal(binding)
+            }
+            "3" -> {
+                val binding = ItemNovelHorizontalBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                ViewHolderHorizontal3(binding)
+            }
+            "4" -> {
+                val binding = ItemNovelHorizontalBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                ViewHolderHorizontal4(binding)
+            }
+            else -> {
+                val binding = ItemNovelVerticalBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                ViewHolderVertical(binding)
+            }
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(option == "1") {
-            (holder as ViewHolderGrid).bind(novelList[position])
-        }
-        else if(option == "2" || option == "3" || option == "4") {
-            (holder as ViewHolderHorizontal).bind(novelList[position])
-        } else {
-            (holder as ViewHolderVertical).bind(novelList[position])
+        when (option) {
+            "1" -> {
+                (holder as ViewHolderGrid).bind(novelList1[position])
+            }
+            "2" -> {
+                (holder as ViewHolderHorizontal).bind(novelList2[position])
+            }
+            "3" -> {
+                (holder as ViewHolderHorizontal3).bind(novelList3[position])
+            }
+            "4" -> {
+                (holder as ViewHolderHorizontal4).bind(novelList4[position])
+            }
+            else -> {
+                (holder as ViewHolderVertical).bind(novelList5[position])
+            }
         }
     }
 
-    override fun getItemCount(): Int = novelList.size
+    override fun getItemCount(): Int {
+        return when (option) {
+            "1" -> {
+                novelList1.size
+            }
+            "2" -> {
+                novelList2.size
+            }
+            "3" -> {
+                novelList3.size
+            }
+            "4" -> {
+                novelList4.size
+            }
+            else -> {
+                novelList5.size
+            }
+        }
+    }
 }

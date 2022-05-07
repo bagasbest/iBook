@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.project.ibook.R
 import com.project.ibook.databinding.ActivityWriteBinding
+import java.util.*
 
 class WriteActivity : AppCompatActivity() {
 
@@ -65,47 +66,54 @@ class WriteActivity : AppCompatActivity() {
         val genre = binding?.genre?.text.toString().trim()
         val synopsis = binding?.sinopsis?.text.toString().trim()
 
-        if (title.isEmpty()) {
-            Toast.makeText(this, "Judul novel tidak boleh kosong", Toast.LENGTH_SHORT).show()
-        } else if (genre.isEmpty()) {
-            Toast.makeText(this, "Genre novel tidak boleh kosong", Toast.LENGTH_SHORT).show()
-        } else if (synopsis.isEmpty()) {
-            Toast.makeText(this, "Sinopsis novel tidak boleh kosong", Toast.LENGTH_SHORT).show()
-        } else if (image == null) {
-            Toast.makeText(this, "Cover gambar novel tidak boleh kosong", Toast.LENGTH_SHORT).show()
-        } else {
-            val mProgressDialog = ProgressDialog(this)
-            mProgressDialog.setMessage("Mohon tunggu hingga proses selesai...")
-            mProgressDialog.setCanceledOnTouchOutside(false)
-            mProgressDialog.show()
+        when {
+            title.isEmpty() -> {
+                Toast.makeText(this, "Judul novel tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            }
+            genre.isEmpty() -> {
+                Toast.makeText(this, "Genre novel tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            }
+            synopsis.isEmpty() -> {
+                Toast.makeText(this, "Sinopsis novel tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            }
+            image == null -> {
+                Toast.makeText(this, "Cover gambar novel tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            }
+            else -> {
+                val mProgressDialog = ProgressDialog(this)
+                mProgressDialog.setMessage("Mohon tunggu hingga proses selesai...")
+                mProgressDialog.setCanceledOnTouchOutside(false)
+                mProgressDialog.show()
 
-            val uid = System.currentTimeMillis().toString()
-            val data = mapOf(
-                "uid" to uid,
-                "title" to title,
-                "genre" to genre,
-                "synopsis" to synopsis,
-                "image" to image,
-                "viewTime" to 0L,
-                "writerName" to writerName,
-                "writerUid" to writerId,
-                "status" to "Draft",
-            )
+                val uid = System.currentTimeMillis().toString()
+                val data = mapOf(
+                    "uid" to uid,
+                    "title" to title,
+                    "titleTemp" to title.lowercase(Locale.getDefault()),
+                    "genre" to genre,
+                    "synopsis" to synopsis,
+                    "image" to image,
+                    "viewTime" to 0L,
+                    "writerName" to writerName,
+                    "writerUid" to writerId,
+                    "status" to "Draft",
+                )
 
-            FirebaseFirestore
-                .getInstance()
-                .collection("novel")
-                .document(uid)
-                .set(data)
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        mProgressDialog.dismiss()
-                        showSuccessDialog()
-                    } else {
-                        mProgressDialog.dismiss()
-                        showFailureDialog()
+                FirebaseFirestore
+                    .getInstance()
+                    .collection("novel")
+                    .document(uid)
+                    .set(data)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            mProgressDialog.dismiss()
+                            showSuccessDialog()
+                        } else {
+                            mProgressDialog.dismiss()
+                            showFailureDialog()
+                        }
                     }
-                }
+            }
         }
 
     }

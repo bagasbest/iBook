@@ -11,9 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.project.ibook.books.my_book.MyBookActivity
-import com.project.ibook.books.other.NovelAdapter
-import com.project.ibook.books.other.NovelModel5
-import com.project.ibook.books.other.NovelViewModel5
+import com.project.ibook.books.other.*
 import com.project.ibook.databinding.ActivityHomepageBinding
 import com.project.ibook.search.SearchActivity
 
@@ -21,6 +19,10 @@ class HomepageActivity : AppCompatActivity() {
 
     private var binding: ActivityHomepageBinding? = null
     private var adapter: NovelAdapter? = null
+    private var novelList1 = ArrayList<NovelModel1>()
+    private var novelList2 = ArrayList<NovelModel2>()
+    private var novelList3 = ArrayList<NovelModel3>()
+    private var novelList4 = ArrayList<NovelModel4>()
     private var novelList5 = ArrayList<NovelModel5>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,18 +44,80 @@ class HomepageActivity : AppCompatActivity() {
             startActivity(Intent(this, MyBookActivity::class.java))
         }
 
+        binding?.next2?.setOnClickListener {
+            val intent = Intent(this, NovelListActivity::class.java)
+            intent.putExtra(NovelListActivity.EXTRA_DATA, novelList2)
+            intent.putExtra(NovelListActivity.OPTION, "2")
+            intent.putExtra(NovelListActivity.TITLE, "Pilihan iBook")
+            startActivity(intent)
+        }
+
+        binding?.next5?.setOnClickListener {
+            val intent = Intent(this, NovelListActivity::class.java)
+            intent.putExtra(NovelListActivity.EXTRA_DATA, novelList5)
+            intent.putExtra(NovelListActivity.OPTION, "5")
+            intent.putExtra(NovelListActivity.TITLE, "Anda Mungkin Suka")
+            startActivity(intent)
+        }
+
     }
 
     private fun initView() {
+
+        initRecyclerView2()
+        initViewModel2()
+
         initRecyclerView5()
         initViewModel5()
     }
 
+    private fun initRecyclerView2() {
+        Handler().postDelayed({
+            if (novelList2.size > 0) {
+                binding?.rv2?.layoutManager = LinearLayoutManager(this)
+                adapter = NovelAdapter(
+                    novelList1,
+                    novelList2,
+                    novelList3,
+                    novelList4,
+                    novelList5,
+                    "2"
+                )
+                binding?.rv2?.adapter = adapter
+            }
+        }, 2000)
+    }
+
+    private fun initViewModel2() {
+        val viewModel = ViewModelProvider(this)[NovelViewModel2::class.java]
+        binding?.progressBar2?.visibility = View.VISIBLE
+        viewModel.setListBookByiBookChoiceLimited()
+        viewModel.getBook().observe(this) { novelList ->
+            if (novelList.size > 0) {
+                novelList2.clear()
+                binding?.noData2?.visibility = View.GONE
+                novelList2.addAll(novelList)
+            } else {
+                binding?.noData2?.visibility = View.VISIBLE
+            }
+            binding!!.progressBar2.visibility = View.GONE
+        }
+    }
+
     private fun initRecyclerView5() {
         Handler().postDelayed({
-            binding?.rv5?.layoutManager = LinearLayoutManager(this)
-            adapter = NovelAdapter(novelList5, "5")
-            binding?.rv5?.adapter = adapter
+           if(novelList5.size > 0) {
+               binding?.rv5?.layoutManager = LinearLayoutManager(this)
+               adapter = NovelAdapter(
+                   novelList1,
+                   novelList2,
+                   novelList3,
+                   novelList4,
+                   novelList5,
+                   "5"
+               )
+               binding?.rv5?.adapter = adapter
+           }
         }, 2000)
     }
 
@@ -66,7 +130,6 @@ class HomepageActivity : AppCompatActivity() {
                 novelList5.clear()
                 binding?.noData5?.visibility = View.GONE
                 novelList5.addAll(novelList)
-                Log.e("tad", novelList5.size.toString())
             } else {
                 binding?.noData5?.visibility = View.VISIBLE
             }
