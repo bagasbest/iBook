@@ -176,6 +176,7 @@ class MyBookBabDetailActivity : AppCompatActivity() {
                 mProgressDialog.show()
                 newBabList.clear()
 
+                val babNo = intent.getIntExtra(BAB_NO, 0)
                 val uid = System.currentTimeMillis().toString()
                 val model = MyBookBabModel(
                     uid = uid,
@@ -185,7 +186,7 @@ class MyBookBabDetailActivity : AppCompatActivity() {
                 )
 
                 newBabList.addAll(babList!!)
-                newBabList[babList!!.size-1] = model
+                newBabList[babNo] = model
 
                 Log.e("tag", babList?.size.toString())
                 Log.e("tag", newBabList.size.toString())

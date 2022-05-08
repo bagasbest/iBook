@@ -135,6 +135,8 @@ class MyBookBabAddActivity : AppCompatActivity() {
                             mProgressDialog.dismiss()
                             Toast.makeText(this, "Berhasil menyimpan Draft", Toast.LENGTH_SHORT).show()
                             binding?.textView3?.text = title
+                            binding?.writerSide?.visibility = View.GONE
+                            isReadMode = true
                             binding?.description?.text = description
                         } else {
                             mProgressDialog.dismiss()
