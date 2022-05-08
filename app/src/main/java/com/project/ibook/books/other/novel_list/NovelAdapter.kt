@@ -1,4 +1,4 @@
-package com.project.ibook.books.other
+package com.project.ibook.books.other.novel_list
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -40,6 +40,7 @@ class NovelAdapter(
                 cv.setOnClickListener {
                     val intent = Intent(itemView.context, NovelDetailActivity::class.java)
                     intent.putExtra(NovelDetailActivity.EXTRA_DATA, model5)
+                    intent.putExtra(NovelDetailActivity.OPTION, "5")
                     itemView.context.startActivity(intent)
                 }
             }
@@ -59,6 +60,7 @@ class NovelAdapter(
                 cv.setOnClickListener {
                     val intent = Intent(itemView.context, NovelDetailActivity::class.java)
                     intent.putExtra(NovelDetailActivity.EXTRA_DATA, model)
+                    intent.putExtra(NovelDetailActivity.OPTION, "2")
                     itemView.context.startActivity(intent)
                 }
             }
@@ -78,6 +80,7 @@ class NovelAdapter(
                 cv.setOnClickListener {
                     val intent = Intent(itemView.context, NovelDetailActivity::class.java)
                     intent.putExtra(NovelDetailActivity.EXTRA_DATA, model)
+                    intent.putExtra(NovelDetailActivity.OPTION, "3")
                     itemView.context.startActivity(intent)
                 }
             }
@@ -97,6 +100,7 @@ class NovelAdapter(
                 cv.setOnClickListener {
                     val intent = Intent(itemView.context, NovelDetailActivity::class.java)
                     intent.putExtra(NovelDetailActivity.EXTRA_DATA, model)
+                    intent.putExtra(NovelDetailActivity.OPTION, "4")
                     itemView.context.startActivity(intent)
                 }
             }
@@ -117,7 +121,7 @@ class NovelAdapter(
                 cv.setOnClickListener {
                     val intent = Intent(itemView.context, NovelDetailActivity::class.java)
                     intent.putExtra(NovelDetailActivity.EXTRA_DATA, model)
-                    intent.putExtra(NovelDetailActivity.OPTION, "5")
+                    intent.putExtra(NovelDetailActivity.OPTION, "1")
                     itemView.context.startActivity(intent)
                 }
             }

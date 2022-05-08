@@ -17,8 +17,9 @@ class NovelViewModel4 : ViewModel() {
         listData.clear()
 
         try {
-            FirebaseFirestore.getInstance().collection("love_forever")
+            FirebaseFirestore.getInstance().collection("novel")
                 .whereEqualTo("status", "Published")
+                .whereEqualTo("homepageCategory", "Cinta Abadi")
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
@@ -51,8 +52,9 @@ class NovelViewModel4 : ViewModel() {
         listData.clear()
 
         try {
-            FirebaseFirestore.getInstance().collection("love_forever")
+            FirebaseFirestore.getInstance().collection("novel")
                 .whereEqualTo("status", "Published")
+                .whereEqualTo("homepageCategory", "Cinta Abadi")
                 .limit(10)
                 .get()
                 .addOnSuccessListener { documents ->

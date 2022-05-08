@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.project.ibook.books.other.NovelDetailActivity
+import com.project.ibook.books.other.novel_list.NovelDetailActivity
 import com.project.ibook.books.other.anda_mungkin_suka.NovelModel5
 import com.project.ibook.databinding.ItemNovelVerticalBinding
 

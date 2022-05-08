@@ -84,6 +84,9 @@ class MyBookEditActivity : AppCompatActivity() {
         val synopsis = binding?.sinopsis?.text.toString().trim()
 
         when {
+            novelStatus == "Published" && model?.babList == null -> {
+                Toast.makeText(this, "Anda harus mengunggah setidaknya 1 Bab, untuk mempublikasikan novel ini", Toast.LENGTH_SHORT).show()
+            }
             title.isEmpty() -> {
                 Toast.makeText(this, "Judul novel tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }

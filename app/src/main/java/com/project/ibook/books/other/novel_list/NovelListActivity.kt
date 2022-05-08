@@ -1,4 +1,4 @@
-package com.project.ibook.books.other
+package com.project.ibook.books.other.novel_list
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,7 +19,7 @@ class NovelListActivity : AppCompatActivity() {
     private var novelList3 = ArrayList<NovelModel3>()
     private var novelList4 = ArrayList<NovelModel4>()
     private var novelList5 = ArrayList<NovelModel5>()
-    private var adapter: NovelAdapter? = null
+    private var adapter: NovelListAdapter? = null
     private var option: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,15 +66,17 @@ class NovelListActivity : AppCompatActivity() {
             }
         }
 
-
         binding?.backButton?.setOnClickListener {
             onBackPressed()
         }
     }
 
     private fun initRecyclerView() {
-        binding?.rvNovel?.layoutManager = LinearLayoutManager(this)
-        adapter = NovelAdapter(novelList1, novelList2, novelList3, novelList4, novelList5, option!!)
+        val layoutManager = LinearLayoutManager(this)
+        layoutManager.reverseLayout = true
+        layoutManager.stackFromEnd = true
+        binding?.rvNovel?.layoutManager = layoutManager
+        adapter = NovelListAdapter(novelList1, novelList2, novelList3, novelList4, novelList5, option!!)
         binding?.rvNovel?.adapter = adapter
     }
 

@@ -97,6 +97,7 @@ class WriteActivity : AppCompatActivity() {
                     "writerName" to writerName,
                     "writerUid" to writerId,
                     "status" to "Draft",
+                    "homepageCategory" to "",
                 )
 
                 FirebaseFirestore

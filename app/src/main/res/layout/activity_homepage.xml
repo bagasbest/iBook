@@ -17,7 +17,7 @@
         android:backgroundTint="#EAEAEA"
         android:orientation="horizontal"
         android:padding="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/logoutBtn"
+        app:layout_constraintEnd_toStartOf="@+id/refreshBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -37,6 +37,21 @@
             android:textSize="15sp" />
 
     </LinearLayout>
+
+
+    <ImageButton
+        android:id="@+id/refreshBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_rounded_btn"
+        android:backgroundTint="@color/orange"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/image"
+        android:src="@drawable/ic_baseline_refresh_24"
+        app:layout_constraintBottom_toBottomOf="@+id/searchBtn"
+        app:layout_constraintEnd_toStartOf="@+id/logoutBtn"
+        app:layout_constraintTop_toTopOf="@+id/searchBtn"
+        app:layout_constraintVertical_bias="0.494" />
 
     <ImageButton
         android:id="@+id/logoutBtn"

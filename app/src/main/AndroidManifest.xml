@@ -8,19 +8,19 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IBook">
         <activity
-            android:name=".books.other.NovelListActivity"
+            android:name=".books.other.novel_list.NovelListActivity"
             android:exported="false" />
         <activity
             android:name=".books.other.NovelReadActivity"
             android:exported="false" />
         <activity
-            android:name=".books.other.NovelDetailActivity"
+            android:name=".books.other.novel_list.NovelDetailActivity"
             android:exported="false" />
         <activity
             android:name=".books.my_book.MyBookEditActivity"

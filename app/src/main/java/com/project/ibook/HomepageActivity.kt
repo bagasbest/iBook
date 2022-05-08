@@ -5,17 +5,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.project.ibook.books.my_book.MyBookActivity
-import com.project.ibook.books.other.*
 import com.project.ibook.books.other.anda_mungkin_suka.NovelModel5
 import com.project.ibook.books.other.anda_mungkin_suka.NovelViewModel5
 import com.project.ibook.books.other.cinta_abadi.NovelModel4
 import com.project.ibook.books.other.cinta_abadi.NovelViewModel4
+import com.project.ibook.books.other.novel_list.NovelAdapter
+import com.project.ibook.books.other.novel_list.NovelListActivity
 import com.project.ibook.books.other.pilihan_iBook.NovelModel2
 import com.project.ibook.books.other.pilihan_iBook.NovelViewModel2
 import com.project.ibook.books.other.terlaris.NovelModel1
@@ -56,9 +58,9 @@ class HomepageActivity : AppCompatActivity() {
 
         binding?.next1?.setOnClickListener {
             val intent = Intent(this, NovelListActivity::class.java)
-            intent.putExtra(NovelListActivity.EXTRA_DATA, novelList2)
-            intent.putExtra(NovelListActivity.OPTION, "2")
-            intent.putExtra(NovelListActivity.TITLE, "Pilihan iBook")
+            intent.putExtra(NovelListActivity.EXTRA_DATA, novelList1)
+            intent.putExtra(NovelListActivity.OPTION, "1")
+            intent.putExtra(NovelListActivity.TITLE, "Terlaris")
             startActivity(intent)
         }
 
@@ -94,6 +96,24 @@ class HomepageActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding?.refreshBtn?.setOnClickListener {
+            initRecyclerView1()
+            initViewModel1()
+
+            initRecyclerView2()
+            initViewModel2()
+
+            initRecyclerView3()
+            initViewModel3()
+
+            initRecyclerView4()
+            initViewModel4()
+
+            initRecyclerView5()
+            initViewModel5()
+
+            Toast.makeText(this, "Memperbarui Homepage...", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initView() {
@@ -153,7 +173,7 @@ class HomepageActivity : AppCompatActivity() {
     private fun initRecyclerView2() {
         Handler().postDelayed({
             if (novelList2.size > 0) {
-                binding?.rv2?.layoutManager = LinearLayoutManager(this)
+                binding?.rv2?.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
                 adapter = NovelAdapter(
                     novelList1,
                     novelList2,
@@ -186,7 +206,7 @@ class HomepageActivity : AppCompatActivity() {
     private fun initRecyclerView3() {
         Handler().postDelayed({
             if(novelList3.size > 0) {
-                binding?.rv3?.layoutManager = LinearLayoutManager(this)
+                binding?.rv3?.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL ,false)
                 adapter = NovelAdapter(
                     novelList1,
                     novelList2,
@@ -219,7 +239,7 @@ class HomepageActivity : AppCompatActivity() {
     private fun initRecyclerView4() {
         Handler().postDelayed({
             if(novelList4.size > 0) {
-                binding?.rv4?.layoutManager = LinearLayoutManager(this)
+                binding?.rv4?.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
                 adapter = NovelAdapter(
                     novelList1,
                     novelList2,
@@ -252,7 +272,10 @@ class HomepageActivity : AppCompatActivity() {
     private fun initRecyclerView5() {
         Handler().postDelayed({
            if(novelList5.size > 0) {
-               binding?.rv5?.layoutManager = LinearLayoutManager(this)
+               val layoutManager = LinearLayoutManager(this)
+               layoutManager.reverseLayout = true
+               layoutManager.stackFromEnd = true
+               binding?.rv5?.layoutManager = layoutManager
                adapter = NovelAdapter(
                    novelList1,
                    novelList2,

@@ -11,4 +11,11 @@
         <item>Draft (Bab belum di publikasikan)</item>
         <item>Published (Bab akan di publikasikan)</item>
     </string-array>
+
+    <string-array name="homepage_category">
+        <item>Terlaris</item>
+        <item>Pilihan iBook</item>
+        <item>Wajib Dibaca</item>
+        <item>Cinta Abadi</item>
+    </string-array>
 </resources>

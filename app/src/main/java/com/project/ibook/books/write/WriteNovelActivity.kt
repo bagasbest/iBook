@@ -41,7 +41,9 @@ class WriteNovelActivity : AppCompatActivity() {
         binding?.genre?.text = "Genre: ${model?.genre}"
         binding?.synopsis?.text = model?.synopsis
         binding?.viewTime?.text = "${model?.viewTime}\nKali Dilihat"
-        getWordCountNovel(model?.babList!!)
+        if(model?.babList != null) {
+            getWordCountNovel(model?.babList!!)
+        }
 
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
         if(model?.writerUid == uid) {
