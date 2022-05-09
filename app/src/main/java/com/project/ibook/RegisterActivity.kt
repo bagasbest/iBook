@@ -2,10 +2,12 @@ package com.project.ibook
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.firestore.FirebaseFirestore
 import com.himanshurawat.hasher.HashType
 import com.himanshurawat.hasher.Hasher
@@ -50,6 +52,9 @@ class RegisterActivity : AppCompatActivity() {
             password.isEmpty() -> {
                 Toast.makeText(this, "Maaf, Kata sandi tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }
+            password.length < 6 -> {
+                Toast.makeText(this, "Maaf, Kata sandi minimal 6 karakter", Toast.LENGTH_SHORT).show()
+            }
             phone.isEmpty() -> {
                 Toast.makeText(this, "Maaf, Kata sandi tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }
@@ -68,7 +73,13 @@ class RegisterActivity : AppCompatActivity() {
                                 )
                         } else {
                             binding?.progressBar?.visibility = View.GONE
-                            showFailureDialog()
+                            try {
+                                throw it.exception!!
+                            } catch (e: FirebaseAuthUserCollisionException) {
+                                showFailureDialog("Email yang anda daftarkan sudah digunakan, silahkan coba email lain")
+                            } catch (e: java.lang.Exception) {
+                                Log.e("TAG", e.message!!)
+                            }
                         }
                     }
             }
@@ -105,17 +116,17 @@ class RegisterActivity : AppCompatActivity() {
                     showSuccessDialog()
                 } else {
                     binding?.progressBar?.visibility = View.GONE
-                    showFailureDialog()
+                    showFailureDialog("Silahkan mendaftar kembali dengan informasi yang benar, dan pastikan koneksi internet lancar")
                 }
             }
 
     }
 
     /// munculkan dialog ketika gagal registrasi
-    private fun showFailureDialog() {
+    private fun showFailureDialog(message: String) {
         AlertDialog.Builder(this)
             .setTitle("Gagal melakukan registrasi")
-            .setMessage("Ups, sepertinya koneksi internet anda tidak stabil, silahkan coba lagi nanti")
+            .setMessage(message)
             .setIcon(R.drawable.ic_baseline_clear_24)
             .setPositiveButton("OKE") { dialogInterface, _ ->
                 dialogInterface.dismiss()

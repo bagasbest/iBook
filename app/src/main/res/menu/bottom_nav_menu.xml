@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <item
+        android:id="@+id/navigation_book"
+        android:icon="@drawable/ic_baseline_menu_book_24"
+        app:cnb_iconColor="@color/white"
+        app:cnb_textColor="@color/white"
+        android:title="@string/title_book" />
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_baseline_library_books_24"
+        app:cnb_iconColor="@color/white"
+        app:cnb_textColor="@color/white"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_account"
+        android:icon="@drawable/ic_baseline_face_24"
+        app:cnb_iconColor="@color/white"
+        app:cnb_textColor="@color/white"
+        android:title="@string/title_account" />
+
+</menu>

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B36F0B"
     tools:context=".books.other.NovelReadActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +16,7 @@
             android:layout_width="35dp"
             android:layout_height="35sp"
             android:contentDescription="@string/image"
+            app:tint="@color/orange"
             android:src="@drawable/ic_baseline_arrow_back_ios_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:text="Judul Bab"
             android:textStyle="bold"
@@ -42,9 +42,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="5dp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:layout_marginTop="30dp"
-            android:textSize="28sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

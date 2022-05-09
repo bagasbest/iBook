@@ -110,12 +110,13 @@ class NovelAdapter(
     inner class ViewHolderGrid(private val binding: ItemNovelGridBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(model: NovelModel1) {
+        fun bind(model: NovelModel1, position: Int) {
             with(binding) {
                 Glide.with(itemView.context)
                     .load(model.image)
                     .into(imageView)
 
+                adapterPosition.text = (position + 1).toString()
                 title.text = model.title
                 writer.text = model.writerName
                 cv.setOnClickListener {
@@ -173,7 +174,7 @@ class NovelAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (option) {
             "1" -> {
-                (holder as ViewHolderGrid).bind(novelList1[position])
+                (holder as ViewHolderGrid).bind(novelList1[position], position)
             }
             "2" -> {
                 (holder as ViewHolderHorizontal).bind(novelList2[position])

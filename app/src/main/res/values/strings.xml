@@ -18,4 +18,8 @@
         <item>Wajib Dibaca</item>
         <item>Cinta Abadi</item>
     </string-array>
+    <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
+    <string name="title_home">Buku</string>
+    <string name="title_book">Rak Buku</string>
+    <string name="title_account">Akun Saya</string>
 </resources>

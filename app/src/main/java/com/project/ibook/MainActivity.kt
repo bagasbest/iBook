@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                                 .addOnCompleteListener { task ->
                                     if(task.isSuccessful) {
                                         binding?.progressBar?.visibility = View.GONE
-                                        startActivity(Intent(this, HomepageActivity::class.java))
+                                        startActivity(Intent(this, BottomNavigationActivity::class.java))
                                         finish()
                                     } else {
                                         binding?.progressBar?.visibility = View.GONE
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun autoLogin() {
         if(FirebaseAuth.getInstance().currentUser != null) {
-            startActivity(Intent(this, HomepageActivity::class.java))
+            startActivity(Intent(this, BottomNavigationActivity::class.java))
             finish()
         }
     }

@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
-import com.project.ibook.HomepageActivity
+import com.project.ibook.BottomNavigationActivity
 import com.project.ibook.R
 import com.project.ibook.databinding.ActivityMyBookBabAddBinding
 
@@ -59,7 +59,7 @@ class MyBookBabAddActivity : AppCompatActivity() {
 
 
         binding?.backButton?.setOnClickListener {
-            val intent = Intent(this, HomepageActivity::class.java)
+            val intent = Intent(this, BottomNavigationActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
             finish()
@@ -150,7 +150,7 @@ class MyBookBabAddActivity : AppCompatActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            val intent = Intent(this, HomepageActivity::class.java)
+            val intent = Intent(this, BottomNavigationActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
             finish()

@@ -4,10 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/drawable/bg_border.xml" value="0.153" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/drawable/bg_bottom_navigation.xml" value="0.1765" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/drawable/bg_login.xml" value="0.177" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/drawable/bg_rounded.xml" value="0.177" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/drawable/bg_rounded_btn.xml" value="0.177" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/drawable/bg_top_rounded.xml" value="0.153" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.19410004275331338" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_homepage.xml" value="0.23645833333333333" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_main.xml" value="0.23645833333333333" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_my_book.xml" value="0.23645833333333333" />
@@ -23,11 +25,16 @@
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_splash_screen.xml" value="0.23645833333333333" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_write.xml" value="0.23645833333333333" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_write_novel.xml" value="0.23645833333333333" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/fragment_account.xml" value="0.19410004275331338" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/fragment_dashboard.xml" value="0.19410004275331338" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/fragment_home.xml" value="0.19410004275331338" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/fragment_notifications.xml" value="0.19410004275331338" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/item_bab.xml" value="0.2328125" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/item_my_novel.xml" value="0.264" />
-        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/item_novel_grid.xml" value="0.23645833333333333" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/item_novel_grid.xml" value="0.536" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/item_novel_horizontal.xml" value="0.23645833333333333" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/item_novel_vertical.xml" value="0.2" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/menu/bottom_nav_menu.xml" value="0.19410004275331338" />
       </map>
     </option>
   </component>

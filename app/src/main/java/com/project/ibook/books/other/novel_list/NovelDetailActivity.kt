@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.project.ibook.HomepageActivity
+import com.project.ibook.BottomNavigationActivity
 import com.project.ibook.R
 import com.project.ibook.books.my_book.add_edit_bab_novel.MyBookBabModel
 import com.project.ibook.books.other.NovelReadAdapter
@@ -256,7 +256,7 @@ class NovelDetailActivity : AppCompatActivity() {
             .setIcon(R.drawable.ic_baseline_check_circle_outline_24)
             .setPositiveButton("OKE") { dialogInterface, _ ->
                 dialogInterface.dismiss()
-                val intent = Intent(this, HomepageActivity::class.java)
+                val intent = Intent(this, BottomNavigationActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()
