@@ -102,7 +102,9 @@ class RegisterActivity : AppCompatActivity() {
             "email" to email,
             "password" to Hasher.hash(password, HashType.SHA_512),
             "phone" to phone,
-            "role" to "user"
+            "role" to "user",
+            "image" to "",
+            "point" to 0L,
         )
 
         FirebaseFirestore

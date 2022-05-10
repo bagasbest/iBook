@@ -80,10 +80,6 @@ class HomeFragment : Fragment() {
             startActivity(Intent(activity, SearchActivity::class.java))
         }
 
-        binding.write.setOnClickListener {
-            startActivity(Intent(activity, MyBookActivity::class.java))
-        }
-
         binding.next1.setOnClickListener {
             val intent = Intent(activity, NovelListActivity::class.java)
             intent.putExtra(NovelListActivity.EXTRA_DATA, novelList1)

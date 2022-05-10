@@ -15,7 +15,7 @@ class NovelReadAdapter(
 
     inner class ViewHolder(private val binding: ItemBabBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(model: MyBookBabModel) {
+        fun bind(model: MyBookBabModel, position: Int) {
             with(binding) {
 
                 titleBab.text = model.title
@@ -23,7 +23,8 @@ class NovelReadAdapter(
 
                 cv.setOnClickListener {
                     val intent = Intent(itemView.context, NovelReadActivity::class.java)
-                    intent.putExtra(NovelReadActivity.EXTRA_DATA, model)
+                    intent.putExtra(NovelReadActivity.BAB_LIST, babList)
+                    intent.putExtra(NovelReadActivity.BAB_NO, position)
                     itemView.context.startActivity(intent)
                 }
             }
@@ -37,7 +38,7 @@ class NovelReadAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(babList[position])
+        holder.bind(babList[position], position)
     }
 
     override fun getItemCount(): Int = babList.size

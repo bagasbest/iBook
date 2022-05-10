@@ -8,20 +8,55 @@ import com.project.ibook.databinding.ActivityNovelReadBinding
 class NovelReadActivity : AppCompatActivity() {
 
     private var binding: ActivityNovelReadBinding? = null
-    private var model: MyBookBabModel? = null
+    private var babList = ArrayList<MyBookBabModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNovelReadBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        model = intent.getParcelableExtra(EXTRA_DATA)
-        binding?.textView3?.text = model?.title
-        binding?.description?.text = model?.description
+        babList = intent.getParcelableArrayListExtra(BAB_LIST)!!
+        var babNo = intent.getIntExtra(BAB_NO, 0)
+        checkBabNumber(babNo)
+        initView(babNo)
+
+        binding?.prev?.setOnClickListener {
+            babNo--
+            initView(babNo)
+            checkBabNumber(babNo)
+        }
+
+        binding?.next?.setOnClickListener {
+            babNo++
+            initView(babNo)
+            checkBabNumber(babNo)
+        }
 
         binding?.backButton?.setOnClickListener {
             onBackPressed()
         }
+    }
+
+    private fun checkBabNumber(babNo: Int) {
+        when (babNo) {
+            0 -> {
+                binding?.prev?.isEnabled = false
+                binding?.next?.isEnabled = true
+            }
+            babList.size-1 -> {
+                binding?.prev?.isEnabled = true
+                binding?.next?.isEnabled = false
+            }
+            else -> {
+                binding?.prev?.isEnabled = true
+                binding?.next?.isEnabled = true
+            }
+        }
+    }
+
+    private fun initView(babNo: Int) {
+        binding?.textView3?.text = babList[babNo].title
+        binding?.description?.text = babList[babNo].description
     }
 
     override fun onDestroy() {
@@ -30,6 +65,7 @@ class NovelReadActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_DATA = "data"
+        const val BAB_LIST = "babList"
+        const val BAB_NO = "babNo"
     }
 }
