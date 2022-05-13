@@ -19,8 +19,8 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         Glide.with(this)
-            .load(R.drawable.icon)
-            .into(binding!!.icon)
+            .load(R.drawable.splash)
+            .into(binding!!.splash)
 
         Handler().postDelayed({
             startActivity(Intent(this, MainActivity::class.java))

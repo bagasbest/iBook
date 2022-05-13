@@ -47,8 +47,7 @@
         android:layout_height="35sp"
         android:src="@drawable/ic_baseline_bookmark_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/orange" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/adapterPosition"

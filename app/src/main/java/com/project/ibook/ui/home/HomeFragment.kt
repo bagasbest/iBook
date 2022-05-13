@@ -82,7 +82,6 @@ class HomeFragment : Fragment() {
 
         binding.next1.setOnClickListener {
             val intent = Intent(activity, NovelListActivity::class.java)
-            intent.putExtra(NovelListActivity.EXTRA_DATA, novelList1)
             intent.putExtra(NovelListActivity.OPTION, "1")
             intent.putExtra(NovelListActivity.TITLE, "Terlaris")
             startActivity(intent)
@@ -90,7 +89,6 @@ class HomeFragment : Fragment() {
 
         binding.next2.setOnClickListener {
             val intent = Intent(activity, NovelListActivity::class.java)
-            intent.putExtra(NovelListActivity.EXTRA_DATA, novelList2)
             intent.putExtra(NovelListActivity.OPTION, "2")
             intent.putExtra(NovelListActivity.TITLE, "Pilihan iBook")
             startActivity(intent)
@@ -98,7 +96,6 @@ class HomeFragment : Fragment() {
 
         binding.next3.setOnClickListener {
             val intent = Intent(activity, NovelListActivity::class.java)
-            intent.putExtra(NovelListActivity.EXTRA_DATA, novelList3)
             intent.putExtra(NovelListActivity.OPTION, "3")
             intent.putExtra(NovelListActivity.TITLE, "Wajib Dibaca")
             startActivity(intent)
@@ -106,7 +103,6 @@ class HomeFragment : Fragment() {
 
         binding.next4.setOnClickListener {
             val intent = Intent(activity, NovelListActivity::class.java)
-            intent.putExtra(NovelListActivity.EXTRA_DATA, novelList4)
             intent.putExtra(NovelListActivity.OPTION, "4")
             intent.putExtra(NovelListActivity.TITLE, "Cinta Abadi")
             startActivity(intent)
@@ -114,7 +110,6 @@ class HomeFragment : Fragment() {
 
         binding.next5.setOnClickListener {
             val intent = Intent(activity, NovelListActivity::class.java)
-            intent.putExtra(NovelListActivity.EXTRA_DATA, novelList5)
             intent.putExtra(NovelListActivity.OPTION, "5")
             intent.putExtra(NovelListActivity.TITLE, "Anda Mungkin Suka")
             startActivity(intent)

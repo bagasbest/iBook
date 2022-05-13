@@ -55,7 +55,7 @@ class NovelViewModel2 : ViewModel() {
             FirebaseFirestore.getInstance().collection("novel")
                 .whereEqualTo("status", "Published")
                 .whereEqualTo("homepageCategory", "Pilihan iBook")
-                .limit(10)
+                .limit(50)
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {

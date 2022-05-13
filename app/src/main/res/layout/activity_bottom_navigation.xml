@@ -10,12 +10,11 @@
         android:layout_width="match_parent"
         android:id="@+id/nav_view"
         android:layout_height="72dp"
-        android:background="@drawable/bg_bottom_navigation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:elevation="16dp"
         app:cnb_menuResource="@menu/bottom_nav_menu"
-        app:cnb_unselectedColor="@color/white"
+        app:cnb_unselectedColor="@color/orange"
         android:padding="8dp"
         app:layout_constraintStart_toStartOf="parent" />
 

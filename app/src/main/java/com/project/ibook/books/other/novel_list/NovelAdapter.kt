@@ -2,10 +2,13 @@ package com.project.ibook.books.other.novel_list
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.project.ibook.R
 import com.project.ibook.books.other.anda_mungkin_suka.NovelModel5
 import com.project.ibook.books.other.cinta_abadi.NovelModel4
 import com.project.ibook.books.other.pilihan_iBook.NovelModel2
@@ -117,6 +120,15 @@ class NovelAdapter(
                     .into(imageView)
 
                 adapterPosition.text = (position + 1).toString()
+                if((position + 1) == 1) {
+                    imageView2.setColorFilter(ContextCompat.getColor(itemView.context, android.R.color.holo_red_dark))
+                } else if ((position + 1) == 2) {
+                    imageView2.setColorFilter(ContextCompat.getColor(itemView.context, android.R.color.holo_orange_light))
+                } else if ((position + 1) == 3) {
+                    imageView2.setColorFilter(ContextCompat.getColor(itemView.context, android.R.color.holo_green_dark))
+                } else {
+                    imageView2.setColorFilter(ContextCompat.getColor(itemView.context, android.R.color.darker_gray))
+                }
                 title.text = model.title
                 writer.text = model.writerName
                 cv.setOnClickListener {

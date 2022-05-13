@@ -2,13 +2,20 @@ package com.project.ibook.books.other.novel_list
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.ibook.books.other.anda_mungkin_suka.NovelModel5
+import com.project.ibook.books.other.anda_mungkin_suka.NovelViewModel5
 import com.project.ibook.books.other.cinta_abadi.NovelModel4
+import com.project.ibook.books.other.cinta_abadi.NovelViewModel4
 import com.project.ibook.books.other.pilihan_iBook.NovelModel2
+import com.project.ibook.books.other.pilihan_iBook.NovelViewModel2
 import com.project.ibook.books.other.terlaris.NovelModel1
+import com.project.ibook.books.other.terlaris.NovelViewModel1
 import com.project.ibook.books.other.wajib_dibaca.NovelModel3
+import com.project.ibook.books.other.wajib_dibaca.NovelViewModel3
 import com.project.ibook.databinding.ActivityNovelListBinding
 
 class NovelListActivity : AppCompatActivity() {
@@ -29,40 +36,26 @@ class NovelListActivity : AppCompatActivity() {
 
         option = intent.getStringExtra(OPTION)
         binding?.textView3?.text = intent.getStringExtra(TITLE)
-        if(option == "1") {
-            novelList1 = intent.getParcelableArrayListExtra(EXTRA_DATA)!!
-            if(novelList1.size == 0) {
-                binding?.noData?.visibility = View.VISIBLE
-            } else {
+        when (option) {
+            "1" -> {
                 initRecyclerView()
+                initViewModel1()
             }
-        } else if (option == "2") {
-            novelList2 = intent.getParcelableArrayListExtra(EXTRA_DATA)!!
-            if(novelList2.size == 0) {
-                binding?.noData?.visibility = View.VISIBLE
-            } else {
+            "2" -> {
                 initRecyclerView()
+                initViewModel2()
             }
-        } else if (option == "3") {
-            novelList3 = intent.getParcelableArrayListExtra(EXTRA_DATA)!!
-            if(novelList3.size == 0) {
-                binding?.noData?.visibility = View.VISIBLE
-            } else {
+            "3" -> {
                 initRecyclerView()
+                initViewModel3()
             }
-        } else if (option == "4") {
-            novelList4 = intent.getParcelableArrayListExtra(EXTRA_DATA)!!
-            if(novelList4.size == 0) {
-                binding?.noData?.visibility = View.VISIBLE
-            } else {
+            "4" -> {
                 initRecyclerView()
+                initViewModel4()
             }
-        } else if (option == "5") {
-            novelList5 = intent.getParcelableArrayListExtra(EXTRA_DATA)!!
-            if(novelList5.size == 0) {
-                binding?.noData?.visibility = View.VISIBLE
-            } else {
+            "5" -> {
                 initRecyclerView()
+                initViewModel5()
             }
         }
 
@@ -72,12 +65,96 @@ class NovelListActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        val layoutManager = LinearLayoutManager(this)
-        layoutManager.reverseLayout = true
-        layoutManager.stackFromEnd = true
-        binding?.rvNovel?.layoutManager = layoutManager
-        adapter = NovelListAdapter(novelList1, novelList2, novelList3, novelList4, novelList5, option!!)
-        binding?.rvNovel?.adapter = adapter
+        Handler().postDelayed({
+            val layoutManager = LinearLayoutManager(this)
+            layoutManager.reverseLayout = true
+            layoutManager.stackFromEnd = true
+            binding?.rvNovel?.layoutManager = layoutManager
+            adapter =
+                NovelListAdapter(novelList1, novelList2, novelList3, novelList4, novelList5, option!!)
+            binding?.rvNovel?.adapter = adapter
+        }, 2000)
+    }
+
+    private fun initViewModel1() {
+        val viewModel = ViewModelProvider(this)[NovelViewModel1::class.java]
+        binding?.progressBar?.visibility = View.VISIBLE
+        viewModel.setListBookByFamousAll()
+        viewModel.getBook().observe(this) { novelList ->
+            if (novelList.size > 0) {
+                novelList1.clear()
+                binding?.noData?.visibility = View.GONE
+                novelList1.addAll(novelList)
+            } else {
+                binding?.noData?.visibility = View.VISIBLE
+            }
+            binding?.progressBar?.visibility = View.GONE
+        }
+    }
+
+    private fun initViewModel2() {
+        val viewModel = ViewModelProvider(this)[NovelViewModel2::class.java]
+        binding?.progressBar?.visibility = View.VISIBLE
+        viewModel.setListBookByiBookChoiceAll()
+        viewModel.getBook().observe(this) { novelList ->
+            if (novelList.size > 0) {
+                novelList2.clear()
+                binding?.noData?.visibility = View.GONE
+                novelList2.addAll(novelList)
+            } else {
+                binding?.noData?.visibility = View.VISIBLE
+            }
+            binding?.progressBar?.visibility = View.GONE
+        }
+    }
+
+    private fun initViewModel3() {
+        val viewModel = ViewModelProvider(this)[NovelViewModel3::class.java]
+        binding?.progressBar?.visibility = View.VISIBLE
+        viewModel.setListBookByMustReadAll()
+        viewModel.getBook().observe(this) { novelList ->
+            if (novelList.size > 0) {
+                novelList3.clear()
+                binding?.noData?.visibility = View.GONE
+                novelList3.addAll(novelList)
+            } else {
+                binding?.noData?.visibility = View.VISIBLE
+            }
+            binding?.progressBar?.visibility = View.GONE
+        }
+    }
+
+
+    private fun initViewModel4() {
+        val viewModel = ViewModelProvider(this)[NovelViewModel4::class.java]
+        binding?.progressBar?.visibility = View.VISIBLE
+        viewModel.setListBookByLoveForeverAll()
+        viewModel.getBook().observe(this) { novelList ->
+            if (novelList.size > 0) {
+                novelList4.clear()
+                binding?.noData?.visibility = View.GONE
+                novelList4.addAll(novelList)
+            } else {
+                binding?.noData?.visibility = View.VISIBLE
+            }
+            binding?.progressBar?.visibility = View.GONE
+        }
+    }
+
+    private fun initViewModel5() {
+        val viewModel = ViewModelProvider(this)[NovelViewModel5::class.java]
+        binding?.progressBar?.visibility = View.VISIBLE
+        viewModel.setListBookAll()
+        viewModel.getBook().observe(this) { novelList ->
+            if (novelList.size > 0) {
+                novelList5.clear()
+                binding?.noData?.visibility = View.GONE
+                novelList5.addAll(novelList)
+            } else {
+                binding?.noData?.visibility = View.VISIBLE
+            }
+            binding?.progressBar?.visibility = View.GONE
+        }
     }
 
     override fun onDestroy() {
@@ -86,7 +163,6 @@ class NovelListActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_DATA ="data"
         const val OPTION = "option"
         const val TITLE = "title"
     }
