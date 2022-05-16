@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/orange"
     tools:context=".books.my_book.MyBookEditActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +16,7 @@
             android:layout_width="35dp"
             android:layout_height="35sp"
             android:contentDescription="@string/image"
+            app:tint="@color/black"
             android:src="@drawable/ic_baseline_arrow_back_ios_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
             android:text="Edit Novel"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/backButton"
@@ -47,41 +47,81 @@
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:background="@drawable/bg_rounded_btn"
-                android:backgroundTint="@color/white"
                 android:hint="Judul Novel"
                 android:inputType="textCapWords"
-                android:paddingStart="16sp"
-                android:paddingEnd="16sp"
                 android:textColor="@color/black" />
 
-            <EditText
-                android:id="@+id/genre"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="16sp"
-                android:background="@drawable/bg_rounded_btn"
-                android:backgroundTint="@color/white"
-                android:hint="Genre Novel (Contoh: Drama, Romance)"
-                android:inputType="textCapWords"
-                android:paddingStart="16sp"
-                android:paddingEnd="16sp"
-                android:textColor="@color/black" />
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="16sp"
+              android:layout_marginTop="16sp"
+              android:text="Genre Novel (Bisa pilih lebih dari 1)" />
+
+            <CheckBox
+                android:id="@+id/cb1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kawin Kontrak"
+                android:onClick="onCheckboxClicked"/>
+
+            <CheckBox
+                android:id="@+id/cb2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"
+                android:text="Adult Romance" />
+
+            <CheckBox
+                android:id="@+id/cb3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"
+                android:text="Bayi" />
+
+            <CheckBox
+                android:id="@+id/cb4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"
+                android:text="Dewa Perang" />
+
+            <CheckBox
+                android:id="@+id/cb5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"
+                android:text="Emosi Perkotaan" />
+
+            <CheckBox
+                android:id="@+id/cb6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"
+                android:text="Fantasi" />
+
+            <CheckBox
+                android:id="@+id/cb7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"
+                android:text="Menantu" />
+
+
+            <CheckBox
+                android:id="@+id/cb8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"
+                android:text="Miliarder" />
 
             <EditText
                 android:id="@+id/sinopsis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16sp"
-                android:background="@drawable/bg_rounded_btn"
-                android:backgroundTint="@color/white"
-                android:gravity="top|start"
                 android:hint="Sinopsis Novel"
                 android:inputType="textMultiLine"
-                android:lines="10"
-                android:paddingStart="16sp"
-                android:paddingTop="16sp"
-                android:paddingEnd="16sp"
                 android:singleLine="false" />
 
 
@@ -90,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16sp"
                 android:text="Unggah Cover Novel"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -120,7 +160,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/white" />
+                    app:tint="#EAEAEA" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -147,8 +187,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:id="@+id/saveBtn"
+                android:textColor="@color/white"
                 android:background="@drawable/bg_rounded_btn"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/orange"
                 android:text="Simpan perubahan Novel"
                 android:textStyle="bold" />
 

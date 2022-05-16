@@ -6,7 +6,9 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.CheckBox
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
@@ -24,6 +26,8 @@ class MyBookEditActivity : AppCompatActivity() {
     private var image: String? = null
     private val REQUEST_IMAGE_GALLERY = 1001
     private var novelStatus : String? = null
+    private var genreList = ArrayList<String>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +43,9 @@ class MyBookEditActivity : AppCompatActivity() {
 
         binding?.title?.setText(model?.title)
         binding?.sinopsis?.setText(model?.synopsis)
-        binding?.genre?.setText(model?.genre)
+        genreList.addAll(model?.genre!!)
 
+        showCheckGenre()
         showDropdownNovelStatus()
 
         binding?.backButton?.setOnClickListener {
@@ -56,6 +61,28 @@ class MyBookEditActivity : AppCompatActivity() {
                 .galleryOnly()
                 .compress(1024)
                 .start(REQUEST_IMAGE_GALLERY)
+        }
+    }
+
+    private fun showCheckGenre() {
+        for(i in model?.genre?.indices!!) {
+            if(model?.genre!![i] == "Kawin Kontrak") {
+                binding?.cb1?.isChecked = true
+            } else if(model?.genre!![i] == "Adult Romance") {
+                binding?.cb2?.isChecked = true
+            } else if(model?.genre!![i] == "Bayi") {
+                binding?.cb3?.isChecked = true
+            } else if(model?.genre!![i] == "Dewa Perang") {
+                binding?.cb4?.isChecked = true
+            } else if(model?.genre!![i] == "Emosi Perkotaan") {
+                binding?.cb5?.isChecked = true
+            } else if(model?.genre!![i] == "Fantasi") {
+                binding?.cb6?.isChecked = true
+            } else if(model?.genre!![i] == "Menantu") {
+                binding?.cb7?.isChecked = true
+            } else if(model?.genre!![i] == "Miliarder") {
+                binding?.cb8?.isChecked = true
+            }
         }
     }
 
@@ -80,7 +107,6 @@ class MyBookEditActivity : AppCompatActivity() {
 
     private fun formValidation() {
         val title = binding?.title?.text.toString().trim()
-        val genre = binding?.genre?.text.toString().trim()
         val synopsis = binding?.sinopsis?.text.toString().trim()
 
         when {
@@ -90,8 +116,8 @@ class MyBookEditActivity : AppCompatActivity() {
             title.isEmpty() -> {
                 Toast.makeText(this, "Judul novel tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }
-            genre.isEmpty() -> {
-                Toast.makeText(this, "Genre novel tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            genreList.size == 0 -> {
+                Toast.makeText(this, "Silahkan pilih minimal 1 genre novel", Toast.LENGTH_SHORT).show()
             }
             synopsis.isEmpty() -> {
                 Toast.makeText(this, "Sinopsis novel tidak boleh kosong", Toast.LENGTH_SHORT).show()
@@ -104,7 +130,7 @@ class MyBookEditActivity : AppCompatActivity() {
 
                 val data = mapOf(
                     "title" to title,
-                    "genre" to genre,
+                    "genre" to genreList,
                     "synopsis" to synopsis,
                     "image" to image,
                     "status" to novelStatus,
@@ -205,6 +231,71 @@ class MyBookEditActivity : AppCompatActivity() {
             }
     }
 
+    fun onCheckboxClicked(view: View) {
+        if (view is CheckBox) {
+            val checked: Boolean = view.isChecked
+
+            when (view.id) {
+                R.id.cb1 -> {
+                    if (checked) {
+                        genreList.add(binding?.cb1?.text.toString())
+                    } else {
+                        genreList.remove(binding?.cb1?.text.toString());
+                    }
+                }
+                R.id.cb2 -> {
+                    if (checked) {
+                        genreList.add(binding?.cb2?.text.toString())
+                    } else {
+                        genreList.remove(binding?.cb2?.text.toString());
+                    }
+                }
+                R.id.cb3 -> {
+                    if (checked) {
+                        genreList.add(binding?.cb3?.text.toString())
+                    } else {
+                        genreList.remove(binding?.cb3?.text.toString());
+                    }
+                }
+                R.id.cb4 -> {
+                    if (checked) {
+                        genreList.add(binding?.cb4?.text.toString())
+                    } else {
+                        genreList.remove(binding?.cb4?.text.toString());
+                    }
+                }
+                R.id.cb5 -> {
+                    if (checked) {
+                        genreList.add(binding?.cb5?.text.toString())
+                    } else {
+                        genreList.remove(binding?.cb5?.text.toString());
+                    }
+                }
+                R.id.cb6 -> {
+                    if (checked) {
+                        genreList.add(binding?.cb6?.text.toString())
+                    } else {
+                        genreList.remove(binding?.cb6?.text.toString());
+                    }
+                }
+                R.id.cb7 -> {
+                    if (checked) {
+                        genreList.add(binding?.cb7?.text.toString())
+                    } else {
+                        genreList.remove(binding?.cb7?.text.toString());
+                    }
+                }
+
+                R.id.cb8 -> {
+                    if (checked) {
+                        genreList.add(binding?.cb8?.text.toString())
+                    } else {
+                        genreList.remove(binding?.cb8?.text.toString());
+                    }
+                }
+            }
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()

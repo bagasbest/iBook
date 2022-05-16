@@ -6,6 +6,8 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.CheckBox
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
@@ -16,6 +18,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.project.ibook.R
 import com.project.ibook.databinding.ActivityWriteBinding
 import java.util.*
+import kotlin.collections.ArrayList
 
 class WriteActivity : AppCompatActivity() {
 
@@ -24,6 +27,8 @@ class WriteActivity : AppCompatActivity() {
     private val REQUEST_IMAGE_GALLERY = 1001
     private var writerName: String? = null
     private var writerId: String? = null
+    private var genreList = ArrayList<String>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,16 +67,16 @@ class WriteActivity : AppCompatActivity() {
     }
 
     private fun formValidation() {
+
         val title = binding?.title?.text.toString().trim()
-        val genre = binding?.genre?.text.toString().trim()
         val synopsis = binding?.sinopsis?.text.toString().trim()
 
         when {
             title.isEmpty() -> {
                 Toast.makeText(this, "Judul novel tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }
-            genre.isEmpty() -> {
-                Toast.makeText(this, "Genre novel tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            genreList.size == 0 -> {
+                Toast.makeText(this, "Silahkan memilih minimal 1 genre novel", Toast.LENGTH_SHORT).show()
             }
             synopsis.isEmpty() -> {
                 Toast.makeText(this, "Sinopsis novel tidak boleh kosong", Toast.LENGTH_SHORT).show()
@@ -90,7 +95,7 @@ class WriteActivity : AppCompatActivity() {
                     "uid" to uid,
                     "title" to title,
                     "titleTemp" to title.lowercase(Locale.getDefault()),
-                    "genre" to genre,
+                    "genre" to genreList,
                     "synopsis" to synopsis,
                     "image" to image,
                     "viewTime" to 0L,
@@ -197,5 +202,71 @@ class WriteActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         binding = null
+    }
+
+    fun onCheckboxClicked(view: View) {
+        if (view is CheckBox) {
+            val checked: Boolean = view.isChecked
+
+            when (view.id) {
+                R.id.cb1 -> {
+                    if (checked) {
+                        genreList.add(binding?.cb1?.text.toString())
+                    } else {
+                        genreList.remove(binding?.cb1?.text.toString());
+                    }
+                }
+                R.id.cb2 -> {
+                    if (checked) {
+                        genreList.add(binding?.cb2?.text.toString())
+                    } else {
+                        genreList.remove(binding?.cb2?.text.toString());
+                    }
+                }
+                R.id.cb3 -> {
+                    if (checked) {
+                        genreList.add(binding?.cb3?.text.toString())
+                    } else {
+                        genreList.remove(binding?.cb3?.text.toString());
+                    }
+                }
+                R.id.cb4 -> {
+                    if (checked) {
+                        genreList.add(binding?.cb4?.text.toString())
+                    } else {
+                        genreList.remove(binding?.cb4?.text.toString());
+                    }
+                }
+                R.id.cb5 -> {
+                    if (checked) {
+                        genreList.add(binding?.cb5?.text.toString())
+                    } else {
+                        genreList.remove(binding?.cb5?.text.toString());
+                    }
+                }
+                R.id.cb6 -> {
+                    if (checked) {
+                        genreList.add(binding?.cb6?.text.toString())
+                    } else {
+                        genreList.remove(binding?.cb6?.text.toString());
+                    }
+                }
+                R.id.cb7 -> {
+                    if (checked) {
+                        genreList.add(binding?.cb7?.text.toString())
+                    } else {
+                        genreList.remove(binding?.cb7?.text.toString());
+                    }
+                }
+
+                R.id.cb8 -> {
+                    if (checked) {
+                        genreList.add(binding?.cb8?.text.toString())
+                    } else {
+                        genreList.remove(binding?.cb8?.text.toString());
+                    }
+                }
+            }
+        }
     }
 }

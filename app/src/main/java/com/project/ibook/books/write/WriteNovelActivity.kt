@@ -38,7 +38,7 @@ class WriteNovelActivity : AppCompatActivity() {
             .into(binding!!.image)
 
         binding?.textView4?.text = model?.title
-        binding?.genre?.text = "Genre: ${model?.genre}"
+        binding?.genre?.text = "Genre: ${model?.genre?.joinToString()}"
         binding?.synopsis?.text = model?.synopsis
         binding?.viewTime?.text = "${model?.viewTime}\nKali Dilihat"
         if(model?.babList != null) {

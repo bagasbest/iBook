@@ -29,7 +29,7 @@ class SearchViewModel  :ViewModel() {
                         model.status = document.data["status"].toString()
                         model.writerName = document.data["writerName"].toString()
                         model.writerUid = document.data["writerUid"].toString()
-                        model.genre = document.data["genre"].toString()
+                        model.genre = document.data["genre"] as ArrayList<String> /* = java.util.ArrayList<kotlin.String> */
                         model.image = document.data["image"].toString()
                         model.viewTime = document.data["viewTime"] as Long
                         model.babList = document.toObject(NovelModel5::class.java).babList
@@ -64,7 +64,7 @@ class SearchViewModel  :ViewModel() {
                         model.status = document.data["status"].toString()
                         model.writerName = document.data["writerName"].toString()
                         model.writerUid = document.data["writerUid"].toString()
-                        model.genre = document.data["genre"].toString()
+                        model.genre = document.data["genre"] as ArrayList<String>
                         model.image = document.data["image"].toString()
                         model.viewTime = document.data["viewTime"] as Long
                         model.babList = document.toObject(NovelModel5::class.java).babList

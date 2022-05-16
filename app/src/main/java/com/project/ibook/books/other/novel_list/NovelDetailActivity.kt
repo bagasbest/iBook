@@ -56,7 +56,7 @@ class NovelDetailActivity : AppCompatActivity() {
                     .into(binding!!.image)
 
                 binding?.textView4?.text = model1?.title
-                binding?.genre?.text = "Genre: ${model1?.genre}"
+                binding?.genre?.text = "Genre: ${model1?.genre?.joinToString()}"
                 binding?.synopsis?.text = model1?.synopsis
                 binding?.viewTime?.text = "${model1?.viewTime}\nKali Dilihat"
                 getWordCountNovel(model1?.babList!!)
@@ -74,7 +74,7 @@ class NovelDetailActivity : AppCompatActivity() {
                     .into(binding!!.image)
 
                 binding?.textView4?.text = model2?.title
-                binding?.genre?.text = "Genre: ${model2?.genre}"
+                binding?.genre?.text = "Genre: ${model2?.genre?.joinToString()}"
                 binding?.synopsis?.text = model2?.synopsis
                 binding?.viewTime?.text = "${model2?.viewTime}\nKali Dilihat"
                 getWordCountNovel(model2?.babList!!)
@@ -92,7 +92,7 @@ class NovelDetailActivity : AppCompatActivity() {
                     .into(binding!!.image)
 
                 binding?.textView4?.text = model3?.title
-                binding?.genre?.text = "Genre: ${model3?.genre}"
+                binding?.genre?.text = "Genre: ${model3?.genre?.joinToString()}"
                 binding?.synopsis?.text = model3?.synopsis
                 binding?.viewTime?.text = "${model3?.viewTime}\nKali Dilihat"
                 getWordCountNovel(model3?.babList!!)
@@ -110,7 +110,7 @@ class NovelDetailActivity : AppCompatActivity() {
                     .into(binding!!.image)
 
                 binding?.textView4?.text = model4?.title
-                binding?.genre?.text = "Genre: ${model4?.genre}"
+                binding?.genre?.text = "Genre: ${model4?.genre?.joinToString()}"
                 binding?.synopsis?.text = model4?.synopsis
                 binding?.viewTime?.text = "${model4?.viewTime}\nKali Dilihat"
                 getWordCountNovel(model4?.babList!!)
@@ -128,7 +128,7 @@ class NovelDetailActivity : AppCompatActivity() {
                     .into(binding!!.image)
 
                 binding?.textView4?.text = model5?.title
-                binding?.genre?.text = "Genre: ${model5?.genre}"
+                binding?.genre?.text = "Genre: ${model5?.genre?.joinToString()}"
                 binding?.synopsis?.text = model5?.synopsis
                 binding?.viewTime?.text = "${model5?.viewTime}\nKali Dilihat"
                 getWordCountNovel(model5?.babList!!)

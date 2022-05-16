@@ -9,7 +9,7 @@ data class NovelModel4(
     var title: String? = null,
     var uid: String? = null,
     var synopsis: String? = null,
-    var genre: String? = null,
+    var genre: ArrayList<String>? = null,
     var writerName: String? = null,
     var writerUid: String? = null,
     var image: String? = null,
