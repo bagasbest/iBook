@@ -173,7 +173,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Apakah Admin Koalanovel ingin menampilkan Novel ini di halaman utama ?, jika Ya silahkan pilih ingin di tampilkan pada kategori apa!" />
+                        android:text="Apakah Admin KoalaNovel ingin menampilkan Novel ini di halaman utama ?, jika Ya silahkan pilih ingin di tampilkan pada kategori apa!" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputLayout123"
