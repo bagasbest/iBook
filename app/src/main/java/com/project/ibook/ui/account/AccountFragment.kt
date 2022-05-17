@@ -17,6 +17,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.project.ibook.MainActivity
 import com.project.ibook.R
 import com.project.ibook.books.my_book.MyBookActivity
 import com.project.ibook.databinding.FragmentAccountBinding
@@ -27,7 +28,7 @@ class AccountFragment : Fragment() {
     private var _binding: FragmentAccountBinding? = null
     private var image: String? = null
     private val REQUEST_IMAGE_GALLERY = 1001
-    private val uid = FirebaseAuth.getInstance().currentUser!!.uid
+    private var uid: String? = null
 
 
     // This property is only valid between onCreateView and
@@ -43,7 +44,12 @@ class AccountFragment : Fragment() {
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        retrieveUserData()
+        if(FirebaseAuth.getInstance().currentUser != null) {
+            binding.noLogin.visibility = View.GONE
+            binding.content.visibility = View.VISIBLE
+            uid = FirebaseAuth.getInstance().currentUser!!.uid
+            retrieveUserData()
+        }
 
         return root
     }
@@ -53,7 +59,7 @@ class AccountFragment : Fragment() {
         FirebaseFirestore
             .getInstance()
             .collection("users")
-            .document(uid)
+            .document(uid!!)
             .get()
             .addOnSuccessListener {
                 val formatter = DecimalFormat("#,###")
@@ -92,6 +98,10 @@ class AccountFragment : Fragment() {
                 .galleryOnly()
                 .compress(1024)
                 .start(REQUEST_IMAGE_GALLERY)
+        }
+
+        binding.loginBtn.setOnClickListener {
+            startActivity(Intent(activity, MainActivity::class.java))
         }
     }
 
@@ -150,7 +160,7 @@ class AccountFragment : Fragment() {
         FirebaseFirestore
             .getInstance()
             .collection("users")
-            .document(uid)
+            .document(uid!!)
             .update("image",image)
     }
 

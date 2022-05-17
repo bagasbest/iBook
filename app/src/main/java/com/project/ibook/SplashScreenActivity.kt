@@ -23,7 +23,7 @@ class SplashScreenActivity : AppCompatActivity() {
             .into(binding!!.splash)
 
         Handler().postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, BottomNavigationActivity::class.java))
             finish()
         }, 3000)
 

@@ -73,7 +73,7 @@ class NovelListActivity : AppCompatActivity() {
             adapter =
                 NovelListAdapter(novelList1, novelList2, novelList3, novelList4, novelList5, option!!)
             binding?.rvNovel?.adapter = adapter
-        }, 2000)
+        }, 1000)
     }
 
     private fun initViewModel1() {

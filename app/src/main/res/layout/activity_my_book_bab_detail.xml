@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B36F0B"
     tools:context=".books.my_book.add_edit_bab_novel.MyBookBabDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,6 +15,7 @@
             android:id="@+id/backButton"
             android:layout_width="35dp"
             android:layout_height="35sp"
+            app:tint="@color/black"
             android:contentDescription="@string/image"
             android:src="@drawable/ic_baseline_arrow_back_ios_24"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,6 @@
             android:layout_height="35sp"
             android:contentDescription="@string/image"
             android:src="@drawable/ic_baseline_delete_24"
-            app:tint="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,14 +37,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:background="@drawable/bg_rounded_btn"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/orange"
             android:paddingStart="16sp"
             android:layout_marginTop="26dp"
             android:paddingEnd="16sp"
             android:visibility="gone"
             android:text="Editor Mode"
             android:textAllCaps="false"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@android:color/white"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -57,7 +56,7 @@
             android:layout_marginEnd="16dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/backButton"
@@ -82,13 +81,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:background="@drawable/bg_rounded_btn"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/orange"
                 android:paddingStart="16sp"
                 android:id="@+id/saveDraft"
                 android:paddingEnd="16sp"
                 android:text="Simpan Draft"
                 android:textAllCaps="false"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
             <View
@@ -109,7 +108,6 @@
                     style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
                     android:layout_width="match_parent"
                     android:background="@drawable/bg_rounded_btn"
-                    android:backgroundTint="@color/white"
                     android:layout_height="wrap_content"
                     android:hint="Status Bab Ini" />
 
@@ -118,10 +116,8 @@
             <EditText
                 android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="16sp"
-                android:background="@drawable/bg_rounded_btn"
-                android:backgroundTint="@color/white"
                 android:hint="Judul Bab"
                 android:inputType="textCapWords"
                 android:paddingStart="16sp"
@@ -134,8 +130,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16sp"
-                android:background="@drawable/bg_rounded_btn"
-                android:backgroundTint="@color/white"
                 android:gravity="top|start"
                 android:hint="Mulai menulis karyamu..."
                 android:inputType="textMultiLine"
@@ -154,7 +148,7 @@
             android:layout_height="wrap_content"
             android:lineSpacingExtra="5dp"
             android:layout_marginTop="16sp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"

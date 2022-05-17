@@ -2,6 +2,8 @@ package com.project.ibook.books.other
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.WindowManager
 import com.project.ibook.books.my_book.add_edit_bab_novel.MyBookBabModel
 import com.project.ibook.databinding.ActivityNovelReadBinding
 
@@ -13,6 +15,7 @@ class NovelReadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNovelReadBinding.inflate(layoutInflater)
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         setContentView(binding?.root)
 
         babList = intent.getParcelableArrayListExtra(BAB_LIST)!!
@@ -38,19 +41,20 @@ class NovelReadActivity : AppCompatActivity() {
     }
 
     private fun checkBabNumber(babNo: Int) {
-        when (babNo) {
-            0 -> {
-                binding?.prev?.isEnabled = false
-                binding?.next?.isEnabled = true
-            }
-            babList.size-1 -> {
-                binding?.prev?.isEnabled = true
-                binding?.next?.isEnabled = false
-            }
-            else -> {
-                binding?.prev?.isEnabled = true
-                binding?.next?.isEnabled = true
-            }
+        Log.e("tag", babNo.toString())
+        Log.e("tag", babList.size.toString())
+        if(babNo == 0 && babList.size > 1) {
+            binding?.prev?.isEnabled = false
+            binding?.next?.isEnabled = true
+        } else if (babList.size == 1 ) {
+            binding?.prev?.isEnabled = false
+            binding?.next?.isEnabled = false
+        } else if (babNo == babList.size-1) {
+            binding?.prev?.isEnabled = true
+            binding?.next?.isEnabled = false
+        } else {
+            binding?.prev?.isEnabled = true
+            binding?.next?.isEnabled = true
         }
     }
 

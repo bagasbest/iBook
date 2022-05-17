@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.project.ibook.BottomNavigationActivity
+import com.project.ibook.MainActivity
 import com.project.ibook.R
 import com.project.ibook.books.my_book.add_edit_bab_novel.MyBookBabModel
 import com.project.ibook.books.other.NovelReadAdapter
@@ -44,152 +45,160 @@ class NovelDetailActivity : AppCompatActivity() {
         binding = ActivityNovelDetailBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        checkRole()
-        showDropdownHomepageCategory()
-        val uid = FirebaseAuth.getInstance().currentUser!!.uid
-        when (intent.getStringExtra(OPTION)) {
-            "1" -> {
-                model1 = intent.getParcelableExtra(EXTRA_DATA)
-                initRecyclerView1()
-                Glide.with(this)
-                    .load(model1?.image)
-                    .into(binding!!.image)
-
-                binding?.textView4?.text = model1?.title
-                binding?.genre?.text = "Genre: ${model1?.genre?.joinToString()}"
-                binding?.synopsis?.text = model1?.synopsis
-                binding?.viewTime?.text = "${model1?.viewTime}\nKali Dilihat"
-                getWordCountNovel(model1?.babList!!)
-                if(uid != model1?.writerUid) {
-                    getTotalView(model1?.viewTime!!, model1?.uid!!)
-                } else {
-                    binding?.viewTime?.text = "${formatter.format(model1?.viewTime)}\nKali Dilihat"
-                }
-            }
-            "2" -> {
-                model2 = intent.getParcelableExtra(EXTRA_DATA)
-                initRecyclerView2()
-                Glide.with(this)
-                    .load(model2?.image)
-                    .into(binding!!.image)
-
-                binding?.textView4?.text = model2?.title
-                binding?.genre?.text = "Genre: ${model2?.genre?.joinToString()}"
-                binding?.synopsis?.text = model2?.synopsis
-                binding?.viewTime?.text = "${model2?.viewTime}\nKali Dilihat"
-                getWordCountNovel(model2?.babList!!)
-                if(uid != model2?.writerUid) {
-                    getTotalView(model2?.viewTime!!, model2?.uid!!)
-                } else {
-                    binding?.viewTime?.text = "${formatter.format(model2?.viewTime)}\nKali Dilihat"
-                }
-            }
-            "3" -> {
-                model3 = intent.getParcelableExtra(EXTRA_DATA)
-                initRecyclerView3()
-                Glide.with(this)
-                    .load(model3?.image)
-                    .into(binding!!.image)
-
-                binding?.textView4?.text = model3?.title
-                binding?.genre?.text = "Genre: ${model3?.genre?.joinToString()}"
-                binding?.synopsis?.text = model3?.synopsis
-                binding?.viewTime?.text = "${model3?.viewTime}\nKali Dilihat"
-                getWordCountNovel(model3?.babList!!)
-                if(uid != model3?.writerUid) {
-                    getTotalView(model3?.viewTime!!, model3?.uid!!)
-                } else {
-                    binding?.viewTime?.text = "${formatter.format(model3?.viewTime)}\nKali Dilihat"
-                }
-            }
-            "4" -> {
-                model4 = intent.getParcelableExtra(EXTRA_DATA)
-                initRecyclerView4()
-                Glide.with(this)
-                    .load(model4?.image)
-                    .into(binding!!.image)
-
-                binding?.textView4?.text = model4?.title
-                binding?.genre?.text = "Genre: ${model4?.genre?.joinToString()}"
-                binding?.synopsis?.text = model4?.synopsis
-                binding?.viewTime?.text = "${model4?.viewTime}\nKali Dilihat"
-                getWordCountNovel(model4?.babList!!)
-                if(uid != model4?.writerUid) {
-                    getTotalView(model4?.viewTime!!, model4?.uid!!)
-                } else {
-                    binding?.viewTime?.text = "${formatter.format(model4?.viewTime)}\nKali Dilihat"
-                }
-            }
-            else -> {
-                model5 = intent.getParcelableExtra(EXTRA_DATA)
-                initRecyclerView5()
-                Glide.with(this)
-                    .load(model5?.image)
-                    .into(binding!!.image)
-
-                binding?.textView4?.text = model5?.title
-                binding?.genre?.text = "Genre: ${model5?.genre?.joinToString()}"
-                binding?.synopsis?.text = model5?.synopsis
-                binding?.viewTime?.text = "${model5?.viewTime}\nKali Dilihat"
-                getWordCountNovel(model5?.babList!!)
-
-                Log.e("tag", uid)
-                Log.e("tag",model5?.writerUid!!)
-
-                if(uid != model5?.writerUid) {
-                    getTotalView(model5?.viewTime!!, model5?.uid!!)
-                } else {
-                    binding?.viewTime?.text = "${formatter.format(model5?.viewTime)}\nKali Dilihat"
-                }
-            }
-        }
-
-        binding?.backButton?.setOnClickListener {
-            onBackPressed()
-        }
-
-        binding?.saveCategory?.setOnClickListener {
+        if(FirebaseAuth.getInstance().currentUser != null){
+            binding?.noLogin?.visibility = View.GONE
+            binding?.content?.visibility = View.VISIBLE
+            checkRole()
+            showDropdownHomepageCategory()
+            val uid = FirebaseAuth.getInstance().currentUser!!.uid
             when (intent.getStringExtra(OPTION)) {
                 "1" -> {
-                    formValidation(model1?.uid!!)
+                    model1 = intent.getParcelableExtra(EXTRA_DATA)
+                    initRecyclerView1()
+                    Glide.with(this)
+                        .load(model1?.image)
+                        .into(binding!!.image)
 
-                }
-                "2" -> {
-                    formValidation(model2?.uid!!)
-
-                }
-                "3" -> {
-                    formValidation(model3?.uid!!)
-
-                }
-                "4" -> {
-                    formValidation(model4?.uid!!)
-
-                }
-                else -> {
-                    formValidation(model5?.uid!!)
-
-                }
-            }
-        }
-
-        binding?.deleteCategory?.setOnClickListener {
-            FirebaseFirestore
-                .getInstance()
-                .collection("novel")
-                .document(model5?.uid!!)
-                .update("homepageCategory", "")
-                .addOnCompleteListener {
-                    if(it.isSuccessful) {
-                        Toast.makeText(this, "Novel ini tidak akan tampil di halaman utama", Toast.LENGTH_SHORT).show()
+                    binding?.textView4?.text = model1?.title
+                    binding?.genre?.text = "Genre: ${model1?.genre?.joinToString()}"
+                    binding?.synopsis?.text = model1?.synopsis
+                    binding?.viewTime?.text = "${model1?.viewTime}\nKali Dilihat"
+                    getWordCountNovel(model1?.babList!!)
+                    if(uid != model1?.writerUid) {
+                        getTotalView(model1?.viewTime!!, model1?.uid!!)
                     } else {
-                        Toast.makeText(this, "Ups, operasi gagal, silahkan coba lagi nanti", Toast.LENGTH_SHORT).show()
+                        binding?.viewTime?.text = "${formatter.format(model1?.viewTime)}\nKali Dilihat"
                     }
                 }
-        }
+                "2" -> {
+                    model2 = intent.getParcelableExtra(EXTRA_DATA)
+                    initRecyclerView2()
+                    Glide.with(this)
+                        .load(model2?.image)
+                        .into(binding!!.image)
 
-        binding?.delete?.setOnClickListener {
-            showConfirmDeleteDialog()
+                    binding?.textView4?.text = model2?.title
+                    binding?.genre?.text = "Genre: ${model2?.genre?.joinToString()}"
+                    binding?.synopsis?.text = model2?.synopsis
+                    binding?.viewTime?.text = "${model2?.viewTime}\nKali Dilihat"
+                    getWordCountNovel(model2?.babList!!)
+                    if(uid != model2?.writerUid) {
+                        getTotalView(model2?.viewTime!!, model2?.uid!!)
+                    } else {
+                        binding?.viewTime?.text = "${formatter.format(model2?.viewTime)}\nKali Dilihat"
+                    }
+                }
+                "3" -> {
+                    model3 = intent.getParcelableExtra(EXTRA_DATA)
+                    initRecyclerView3()
+                    Glide.with(this)
+                        .load(model3?.image)
+                        .into(binding!!.image)
+
+                    binding?.textView4?.text = model3?.title
+                    binding?.genre?.text = "Genre: ${model3?.genre?.joinToString()}"
+                    binding?.synopsis?.text = model3?.synopsis
+                    binding?.viewTime?.text = "${model3?.viewTime}\nKali Dilihat"
+                    getWordCountNovel(model3?.babList!!)
+                    if(uid != model3?.writerUid) {
+                        getTotalView(model3?.viewTime!!, model3?.uid!!)
+                    } else {
+                        binding?.viewTime?.text = "${formatter.format(model3?.viewTime)}\nKali Dilihat"
+                    }
+                }
+                "4" -> {
+                    model4 = intent.getParcelableExtra(EXTRA_DATA)
+                    initRecyclerView4()
+                    Glide.with(this)
+                        .load(model4?.image)
+                        .into(binding!!.image)
+
+                    binding?.textView4?.text = model4?.title
+                    binding?.genre?.text = "Genre: ${model4?.genre?.joinToString()}"
+                    binding?.synopsis?.text = model4?.synopsis
+                    binding?.viewTime?.text = "${model4?.viewTime}\nKali Dilihat"
+                    getWordCountNovel(model4?.babList!!)
+                    if(uid != model4?.writerUid) {
+                        getTotalView(model4?.viewTime!!, model4?.uid!!)
+                    } else {
+                        binding?.viewTime?.text = "${formatter.format(model4?.viewTime)}\nKali Dilihat"
+                    }
+                }
+                else -> {
+                    model5 = intent.getParcelableExtra(EXTRA_DATA)
+                    initRecyclerView5()
+                    Glide.with(this)
+                        .load(model5?.image)
+                        .into(binding!!.image)
+
+                    binding?.textView4?.text = model5?.title
+                    binding?.genre?.text = "Genre: ${model5?.genre?.joinToString()}"
+                    binding?.synopsis?.text = model5?.synopsis
+                    binding?.viewTime?.text = "${model5?.viewTime}\nKali Dilihat"
+                    getWordCountNovel(model5?.babList!!)
+
+                    Log.e("tag", uid)
+                    Log.e("tag",model5?.writerUid!!)
+
+                    if(uid != model5?.writerUid) {
+                        getTotalView(model5?.viewTime!!, model5?.uid!!)
+                    } else {
+                        binding?.viewTime?.text = "${formatter.format(model5?.viewTime)}\nKali Dilihat"
+                    }
+                }
+            }
+
+            binding?.backButton?.setOnClickListener {
+                onBackPressed()
+            }
+
+            binding?.saveCategory?.setOnClickListener {
+                when (intent.getStringExtra(OPTION)) {
+                    "1" -> {
+                        formValidation(model1?.uid!!)
+
+                    }
+                    "2" -> {
+                        formValidation(model2?.uid!!)
+
+                    }
+                    "3" -> {
+                        formValidation(model3?.uid!!)
+
+                    }
+                    "4" -> {
+                        formValidation(model4?.uid!!)
+
+                    }
+                    else -> {
+                        formValidation(model5?.uid!!)
+
+                    }
+                }
+            }
+
+            binding?.deleteCategory?.setOnClickListener {
+                FirebaseFirestore
+                    .getInstance()
+                    .collection("novel")
+                    .document(model5?.uid!!)
+                    .update("homepageCategory", "")
+                    .addOnCompleteListener {
+                        if(it.isSuccessful) {
+                            Toast.makeText(this, "Novel ini tidak akan tampil di halaman utama", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this, "Ups, operasi gagal, silahkan coba lagi nanti", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+            }
+
+            binding?.delete?.setOnClickListener {
+                showConfirmDeleteDialog()
+            }
+        } else {
+            binding?.loginBtn?.setOnClickListener {
+                startActivity(Intent(this, MainActivity::class.java))
+            }
         }
     }
 

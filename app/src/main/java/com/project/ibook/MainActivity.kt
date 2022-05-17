@@ -21,8 +21,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        autoLogin()
-
 
         binding?.registerGuest?.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
@@ -89,14 +87,6 @@ class MainActivity : AppCompatActivity() {
                 dialogInterface.dismiss()
             }
             .show()
-    }
-
-
-    private fun autoLogin() {
-        if(FirebaseAuth.getInstance().currentUser != null) {
-            startActivity(Intent(this, BottomNavigationActivity::class.java))
-            finish()
-        }
     }
 
     override fun onDestroy() {

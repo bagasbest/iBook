@@ -43,8 +43,8 @@ class SearchActivity : AppCompatActivity() {
                     initRecyclerView()
                     initViewModel(executedQuery)
                 } else {
-                    binding?.rvBook?.visibility = View.INVISIBLE
-                    binding?.noData?.visibility = View.VISIBLE
+                    initRecyclerView()
+                    initViewModel("all")
                 }
             }
         })

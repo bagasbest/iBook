@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +17,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.project.ibook.MainActivity
 import com.project.ibook.R
-import com.project.ibook.books.my_book.MyBookActivity
 import com.project.ibook.books.other.anda_mungkin_suka.NovelModel5
 import com.project.ibook.books.other.anda_mungkin_suka.NovelViewModel5
 import com.project.ibook.books.other.cinta_abadi.NovelModel4
@@ -56,6 +56,11 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        if(FirebaseAuth.getInstance().currentUser == null) {
+            binding.logoutBtn.setImageResource(R.drawable.ic_baseline_login_24)
+            binding.logoutBtn.backgroundTintList = ContextCompat.getColorStateList(requireContext(), android.R.color.holo_green_dark)
+        }
+
         progressDialog()
         initView()
 
@@ -72,8 +77,13 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding.logoutBtn.setOnClickListener {
-            logout()
+            if(FirebaseAuth.getInstance().currentUser != null) {
+                logout()
+            } else {
+                login()
+            }
         }
 
         binding.searchBtn.setOnClickListener {
@@ -114,6 +124,10 @@ class HomeFragment : Fragment() {
             intent.putExtra(NovelListActivity.TITLE, "Anda Mungkin Suka")
             startActivity(intent)
         }
+    }
+
+    private fun login() {
+        startActivity(Intent(activity, MainActivity::class.java))
     }
 
     private fun initView() {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">iBook</string>
+    <string name="app_name">Koalanovel</string>
     <string name="image">image</string>
 
     <string-array name="novel_status">
@@ -14,7 +14,7 @@
 
     <string-array name="homepage_category">
         <item>Terlaris</item>
-        <item>Pilihan iBook</item>
+        <item>Pilihan Koalanovel</item>
         <item>Wajib Dibaca</item>
         <item>Cinta Abadi</item>
     </string-array>
