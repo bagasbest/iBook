@@ -11,6 +11,7 @@
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/drawable/bg_top_rounded.xml" value="0.153" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/drawable/ic_baseline_bookmark_24.xml" value="0.1935" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.19410004275331338" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_comment.xml" value="0.2" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_homepage.xml" value="0.23645833333333333" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_main.xml" value="0.23645833333333333" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_my_book.xml" value="0.23645833333333333" />
@@ -26,12 +27,13 @@
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_splash_screen.xml" value="0.176" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_write.xml" value="0.23645833333333333" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/activity_write_novel.xml" value="0.23645833333333333" />
-        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/fragment_account.xml" value="0.2" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/fragment_account.xml" value="0.264" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/fragment_book.xml" value="0.19410004275331338" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/fragment_dashboard.xml" value="0.19410004275331338" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/fragment_home.xml" value="0.19410004275331338" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/fragment_notifications.xml" value="0.19410004275331338" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/item_bab.xml" value="0.2328125" />
+        <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/item_comment.xml" value="0.264" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/item_my_novel.xml" value="0.264" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/item_novel_grid.xml" value="0.264" />
         <entry key="..\:/TUBES_GALERI/IBook/app/src/main/res/layout/item_novel_horizontal.xml" value="0.23645833333333333" />

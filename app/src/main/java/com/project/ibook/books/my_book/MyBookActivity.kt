@@ -29,10 +29,6 @@ class MyBookActivity : AppCompatActivity() {
         binding?.imageButton?.setOnClickListener {
             onBackPressed()
         }
-
-        binding?.newNovel?.setOnClickListener {
-            startActivity(Intent(this, WriteActivity::class.java))
-        }
     }
 
 

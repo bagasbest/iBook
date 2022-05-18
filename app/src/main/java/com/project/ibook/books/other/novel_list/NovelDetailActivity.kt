@@ -1,6 +1,7 @@
 package com.project.ibook.books.other.novel_list
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -21,11 +22,13 @@ import com.project.ibook.books.my_book.add_edit_bab_novel.MyBookBabModel
 import com.project.ibook.books.other.NovelReadAdapter
 import com.project.ibook.books.other.anda_mungkin_suka.NovelModel5
 import com.project.ibook.books.other.cinta_abadi.NovelModel4
+import com.project.ibook.books.other.novel_list.comment.CommentActivity
 import com.project.ibook.books.other.pilihan_iBook.NovelModel2
 import com.project.ibook.books.other.terlaris.NovelModel1
 import com.project.ibook.books.other.wajib_dibaca.NovelModel3
 import com.project.ibook.databinding.ActivityNovelDetailBinding
 import java.text.DecimalFormat
+
 
 class NovelDetailActivity : AppCompatActivity() {
 
@@ -38,6 +41,7 @@ class NovelDetailActivity : AppCompatActivity() {
     private var adapter: NovelReadAdapter? = null
     private var homepageCategory: String? = null
     private val formatter = DecimalFormat("#,###")
+    private var novelId: String? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +63,7 @@ class NovelDetailActivity : AppCompatActivity() {
                         .load(model1?.image)
                         .into(binding!!.image)
 
+                    novelId = model1?.uid
                     binding?.textView4?.text = model1?.title
                     binding?.genre?.text = "Genre: ${model1?.genre?.joinToString()}"
                     binding?.synopsis?.text = model1?.synopsis
@@ -77,6 +82,7 @@ class NovelDetailActivity : AppCompatActivity() {
                         .load(model2?.image)
                         .into(binding!!.image)
 
+                    novelId = model2?.uid
                     binding?.textView4?.text = model2?.title
                     binding?.genre?.text = "Genre: ${model2?.genre?.joinToString()}"
                     binding?.synopsis?.text = model2?.synopsis
@@ -95,6 +101,7 @@ class NovelDetailActivity : AppCompatActivity() {
                         .load(model3?.image)
                         .into(binding!!.image)
 
+                    novelId = model3?.uid
                     binding?.textView4?.text = model3?.title
                     binding?.genre?.text = "Genre: ${model3?.genre?.joinToString()}"
                     binding?.synopsis?.text = model3?.synopsis
@@ -113,6 +120,7 @@ class NovelDetailActivity : AppCompatActivity() {
                         .load(model4?.image)
                         .into(binding!!.image)
 
+                    novelId = model4?.uid
                     binding?.textView4?.text = model4?.title
                     binding?.genre?.text = "Genre: ${model4?.genre?.joinToString()}"
                     binding?.synopsis?.text = model4?.synopsis
@@ -131,6 +139,8 @@ class NovelDetailActivity : AppCompatActivity() {
                         .load(model5?.image)
                         .into(binding!!.image)
 
+
+                    novelId = model5?.uid
                     binding?.textView4?.text = model5?.title
                     binding?.genre?.text = "Genre: ${model5?.genre?.joinToString()}"
                     binding?.synopsis?.text = model5?.synopsis
@@ -195,11 +205,31 @@ class NovelDetailActivity : AppCompatActivity() {
             binding?.delete?.setOnClickListener {
                 showConfirmDeleteDialog()
             }
+
+            binding?.menu?.setOnClickListener {
+                showMenuPicker()
+            }
         } else {
             binding?.loginBtn?.setOnClickListener {
                 startActivity(Intent(this, MainActivity::class.java))
             }
         }
+    }
+
+    private fun showMenuPicker() {
+        val options = arrayOf("Semua Komentar", "Tambahkan ke Rak Buku", "Bagikan")
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Pilihan")
+        builder.setItems(options) { dialog: DialogInterface, which: Int ->
+            dialog.dismiss()
+            if (which == 0) {
+               val intent = Intent(this, CommentActivity::class.java)
+                intent.putExtra(CommentActivity.NOVEL_ID, novelId)
+                startActivity(intent)
+            }
+        }
+        builder.create().show()
     }
 
     private fun showConfirmDeleteDialog() {

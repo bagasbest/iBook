@@ -104,7 +104,8 @@ class RegisterActivity : AppCompatActivity() {
             "phone" to phone,
             "role" to "user",
             "image" to "",
-            "point" to 0L,
+            "goldCoin" to 0L,
+            "silverCoin" to 0L,
         )
 
         FirebaseFirestore

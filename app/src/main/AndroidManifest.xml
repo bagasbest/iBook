@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IBook">
         <activity
+            android:name=".books.other.novel_list.comment.CommentActivity"
+            android:exported="false" />
+        <activity
             android:name=".BottomNavigationActivity"
             android:exported="false"
             android:label="@string/title_activity_bottom_navigation" />

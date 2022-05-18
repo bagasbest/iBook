@@ -20,6 +20,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.project.ibook.MainActivity
 import com.project.ibook.R
 import com.project.ibook.books.my_book.MyBookActivity
+import com.project.ibook.books.write.WriteActivity
 import com.project.ibook.databinding.FragmentAccountBinding
 import java.text.DecimalFormat
 
@@ -66,7 +67,8 @@ class AccountFragment : Fragment() {
                 val username = "" + it.data!!["username"]
                 val email = "" + it.data!!["email"]
                 val image = "" + it.data!!["image"]
-                val point = it.data!!["point"] as Long
+                val goldCoin = it.data!!["goldCoin"] as Long
+                val silverCoin = it.data!!["silverCoin"] as Long
 
 
                 if(image != "") {
@@ -81,7 +83,8 @@ class AccountFragment : Fragment() {
 
                 binding.username.text = username
                 binding.email.text = email
-                binding.point.text = "${formatter.format(point)} Point"
+                binding.goldCoin.text = formatter.format(goldCoin)
+                binding.silverCoin.text = formatter.format(silverCoin)
             }
     }
 
@@ -89,8 +92,12 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.write.setOnClickListener {
+        binding.myBook.setOnClickListener {
             startActivity(Intent(activity, MyBookActivity::class.java))
+        }
+
+        binding.textView10.setOnClickListener {
+            startActivity(Intent(activity, WriteActivity::class.java))
         }
 
         binding.imageHint.setOnClickListener {
