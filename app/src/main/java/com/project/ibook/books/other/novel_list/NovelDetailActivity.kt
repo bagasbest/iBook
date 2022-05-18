@@ -27,6 +27,7 @@ import com.project.ibook.books.other.pilihan_iBook.NovelModel2
 import com.project.ibook.books.other.terlaris.NovelModel1
 import com.project.ibook.books.other.wajib_dibaca.NovelModel3
 import com.project.ibook.databinding.ActivityNovelDetailBinding
+import com.project.ibook.utils.AddBookToMyRack
 import java.text.DecimalFormat
 
 
@@ -54,93 +55,94 @@ class NovelDetailActivity : AppCompatActivity() {
             binding?.content?.visibility = View.VISIBLE
             checkRole()
             showDropdownHomepageCategory()
+
             val uid = FirebaseAuth.getInstance().currentUser!!.uid
             when (intent.getStringExtra(OPTION)) {
                 "1" -> {
                     model1 = intent.getParcelableExtra(EXTRA_DATA)
+                    novelId = model1?.uid
                     initRecyclerView1()
                     Glide.with(this)
                         .load(model1?.image)
                         .into(binding!!.image)
 
-                    novelId = model1?.uid
                     binding?.textView4?.text = model1?.title
                     binding?.genre?.text = "Genre: ${model1?.genre?.joinToString()}"
                     binding?.synopsis?.text = model1?.synopsis
                     binding?.viewTime?.text = "${model1?.viewTime}\nKali Dilihat"
                     getWordCountNovel(model1?.babList!!)
                     if(uid != model1?.writerUid) {
-                        getTotalView(model1?.viewTime!!, model1?.uid!!)
+                        getTotalView(model1?.viewTime!!, novelId!!)
                     } else {
                         binding?.viewTime?.text = "${formatter.format(model1?.viewTime)}\nKali Dilihat"
                     }
                 }
                 "2" -> {
                     model2 = intent.getParcelableExtra(EXTRA_DATA)
+                    novelId = model2?.uid
                     initRecyclerView2()
                     Glide.with(this)
                         .load(model2?.image)
                         .into(binding!!.image)
 
-                    novelId = model2?.uid
                     binding?.textView4?.text = model2?.title
                     binding?.genre?.text = "Genre: ${model2?.genre?.joinToString()}"
                     binding?.synopsis?.text = model2?.synopsis
                     binding?.viewTime?.text = "${model2?.viewTime}\nKali Dilihat"
                     getWordCountNovel(model2?.babList!!)
                     if(uid != model2?.writerUid) {
-                        getTotalView(model2?.viewTime!!, model2?.uid!!)
+                        getTotalView(model2?.viewTime!!, novelId!!)
                     } else {
                         binding?.viewTime?.text = "${formatter.format(model2?.viewTime)}\nKali Dilihat"
                     }
                 }
                 "3" -> {
                     model3 = intent.getParcelableExtra(EXTRA_DATA)
+                    novelId = model3?.uid
                     initRecyclerView3()
                     Glide.with(this)
                         .load(model3?.image)
                         .into(binding!!.image)
 
-                    novelId = model3?.uid
                     binding?.textView4?.text = model3?.title
                     binding?.genre?.text = "Genre: ${model3?.genre?.joinToString()}"
                     binding?.synopsis?.text = model3?.synopsis
                     binding?.viewTime?.text = "${model3?.viewTime}\nKali Dilihat"
                     getWordCountNovel(model3?.babList!!)
                     if(uid != model3?.writerUid) {
-                        getTotalView(model3?.viewTime!!, model3?.uid!!)
+                        getTotalView(model3?.viewTime!!, novelId!!)
                     } else {
                         binding?.viewTime?.text = "${formatter.format(model3?.viewTime)}\nKali Dilihat"
                     }
                 }
                 "4" -> {
                     model4 = intent.getParcelableExtra(EXTRA_DATA)
+                    novelId = model4?.uid
                     initRecyclerView4()
                     Glide.with(this)
                         .load(model4?.image)
                         .into(binding!!.image)
 
-                    novelId = model4?.uid
                     binding?.textView4?.text = model4?.title
                     binding?.genre?.text = "Genre: ${model4?.genre?.joinToString()}"
                     binding?.synopsis?.text = model4?.synopsis
                     binding?.viewTime?.text = "${model4?.viewTime}\nKali Dilihat"
                     getWordCountNovel(model4?.babList!!)
                     if(uid != model4?.writerUid) {
-                        getTotalView(model4?.viewTime!!, model4?.uid!!)
+                        getTotalView(model4?.viewTime!!, novelId!!)
                     } else {
                         binding?.viewTime?.text = "${formatter.format(model4?.viewTime)}\nKali Dilihat"
                     }
                 }
                 else -> {
                     model5 = intent.getParcelableExtra(EXTRA_DATA)
+                    novelId = model5?.uid
                     initRecyclerView5()
                     Glide.with(this)
                         .load(model5?.image)
                         .into(binding!!.image)
 
 
-                    novelId = model5?.uid
                     binding?.textView4?.text = model5?.title
                     binding?.genre?.text = "Genre: ${model5?.genre?.joinToString()}"
                     binding?.synopsis?.text = model5?.synopsis
@@ -151,7 +153,7 @@ class NovelDetailActivity : AppCompatActivity() {
                     Log.e("tag",model5?.writerUid!!)
 
                     if(uid != model5?.writerUid) {
-                        getTotalView(model5?.viewTime!!, model5?.uid!!)
+                        getTotalView(model5?.viewTime!!, novelId!!)
                     } else {
                         binding?.viewTime?.text = "${formatter.format(model5?.viewTime)}\nKali Dilihat"
                     }
@@ -217,19 +219,52 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun showMenuPicker() {
-        val options = arrayOf("Semua Komentar", "Tambahkan ke Rak Buku", "Bagikan")
+        val inRackBookOrNot = intent.getStringExtra(IN_RAK_BUKU)
+        if(inRackBookOrNot != null) {
+            val options = arrayOf("Semua Komentar", "Tambahkan ke Rak Buku", "Hapus dari Rak Buku", "Bagikan")
 
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Pilihan")
-        builder.setItems(options) { dialog: DialogInterface, which: Int ->
-            dialog.dismiss()
-            if (which == 0) {
-               val intent = Intent(this, CommentActivity::class.java)
-                intent.putExtra(CommentActivity.NOVEL_ID, novelId)
-                startActivity(intent)
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Pilihan")
+            builder.setItems(options) { dialog: DialogInterface, which: Int ->
+                dialog.dismiss()
+                when (which) {
+                    0 -> {
+                        val intent = Intent(this, CommentActivity::class.java)
+                        intent.putExtra(CommentActivity.NOVEL_ID, novelId)
+                        startActivity(intent)
+                    }
+                    1 -> {
+                        AddBookToMyRack.addBook(novelId, this, "add")
+                    }
+                    2 -> {
+                        AddBookToMyRack.deleteRack(novelId, this,)
+                    }
+                }
             }
+            builder.create().show()
+        } else {
+            val options = arrayOf("Semua Komentar", "Tambahkan ke Rak Buku", "Bagikan")
+
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Pilihan")
+            builder.setItems(options) { dialog: DialogInterface, which: Int ->
+                dialog.dismiss()
+                when (which) {
+                    0 -> {
+                        val intent = Intent(this, CommentActivity::class.java)
+                        intent.putExtra(CommentActivity.NOVEL_ID, novelId)
+                        startActivity(intent)
+                    }
+                    1 -> {
+                        AddBookToMyRack.addBook(novelId, this, "add")
+                    }
+                    2 -> {
+
+                    }
+                }
+            }
+            builder.create().show()
         }
-        builder.create().show()
     }
 
     private fun showConfirmDeleteDialog() {
@@ -395,7 +430,7 @@ class NovelDetailActivity : AppCompatActivity() {
                 if(publishedBab.size > 0) {
                     binding?.rvBab?.layoutManager = LinearLayoutManager(this)
                     binding?.bab?.text = "${publishedBab.size}\nBab"
-                    adapter = NovelReadAdapter(publishedBab)
+                    adapter = NovelReadAdapter(publishedBab, novelId)
                     binding?.rvBab?.adapter = adapter
                 } else {
                     binding?.noData?.visibility = View.VISIBLE
@@ -423,7 +458,7 @@ class NovelDetailActivity : AppCompatActivity() {
                 if(publishedBab.size > 0) {
                     binding?.rvBab?.layoutManager = LinearLayoutManager(this)
                     binding?.bab?.text = "${publishedBab.size}\nBab"
-                    adapter = NovelReadAdapter(publishedBab)
+                    adapter = NovelReadAdapter(publishedBab, novelId)
                     binding?.rvBab?.adapter = adapter
                 } else {
                     binding?.noData?.visibility = View.VISIBLE
@@ -451,7 +486,7 @@ class NovelDetailActivity : AppCompatActivity() {
                 if(publishedBab.size > 0) {
                     binding?.rvBab?.layoutManager = LinearLayoutManager(this)
                     binding?.bab?.text = "${publishedBab.size}\nBab"
-                    adapter = NovelReadAdapter(publishedBab)
+                    adapter = NovelReadAdapter(publishedBab, novelId)
                     binding?.rvBab?.adapter = adapter
                 }else {
                     binding?.noData?.visibility = View.VISIBLE
@@ -481,7 +516,7 @@ class NovelDetailActivity : AppCompatActivity() {
                 if(publishedBab.size > 0) {
                     binding?.rvBab?.layoutManager = LinearLayoutManager(this)
                     binding?.bab?.text = "${publishedBab.size}\nBab"
-                    adapter = NovelReadAdapter(publishedBab)
+                    adapter = NovelReadAdapter(publishedBab, novelId)
                     binding?.rvBab?.adapter = adapter
                 } else {
                     binding?.noData?.visibility = View.VISIBLE
@@ -509,7 +544,7 @@ class NovelDetailActivity : AppCompatActivity() {
                 if(publishedBab.size > 0) {
                     binding?.rvBab?.layoutManager = LinearLayoutManager(this)
                     binding?.bab?.text = "${publishedBab.size}\nBab"
-                    adapter = NovelReadAdapter(publishedBab)
+                    adapter = NovelReadAdapter(publishedBab, novelId)
                     binding?.rvBab?.adapter = adapter
                 } else {
                     binding?.noData?.visibility = View.VISIBLE
@@ -527,5 +562,6 @@ class NovelDetailActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_DATA = "data"
         const val OPTION = "option"
+        const val IN_RAK_BUKU = "rakBuku"
     }
 }

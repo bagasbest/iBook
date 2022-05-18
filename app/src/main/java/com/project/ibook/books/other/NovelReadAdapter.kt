@@ -10,6 +10,7 @@ import com.project.ibook.databinding.ItemBabBinding
 
 class NovelReadAdapter(
     private var babList: ArrayList<MyBookBabModel>,
+    private val novelId: String?,
 ) : RecyclerView.Adapter<NovelReadAdapter.ViewHolder>() {
 
 
@@ -25,6 +26,7 @@ class NovelReadAdapter(
                     val intent = Intent(itemView.context, NovelReadActivity::class.java)
                     intent.putExtra(NovelReadActivity.BAB_LIST, babList)
                     intent.putExtra(NovelReadActivity.BAB_NO, position)
+                    intent.putExtra(NovelReadActivity.NOVEL_ID, novelId)
                     itemView.context.startActivity(intent)
                 }
             }

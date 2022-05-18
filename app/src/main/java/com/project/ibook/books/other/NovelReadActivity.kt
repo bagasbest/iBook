@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.WindowManager
 import com.project.ibook.books.my_book.add_edit_bab_novel.MyBookBabModel
 import com.project.ibook.databinding.ActivityNovelReadBinding
+import com.project.ibook.utils.AddBookToMyRack
 
 class NovelReadActivity : AppCompatActivity() {
 
@@ -18,6 +19,8 @@ class NovelReadActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         setContentView(binding?.root)
 
+        val novelId = intent.getStringExtra(NOVEL_ID)
+        AddBookToMyRack.addBook(novelId, this, "read")
         babList = intent.getParcelableArrayListExtra(BAB_LIST)!!
         var babNo = intent.getIntExtra(BAB_NO, 0)
         checkBabNumber(babNo)
@@ -71,5 +74,6 @@ class NovelReadActivity : AppCompatActivity() {
     companion object {
         const val BAB_LIST = "babList"
         const val BAB_NO = "babNo"
+        const val NOVEL_ID = "novelId"
     }
 }

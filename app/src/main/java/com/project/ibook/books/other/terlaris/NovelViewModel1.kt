@@ -85,7 +85,35 @@ class NovelViewModel1 : ViewModel() {
     }
 
 
+    fun setListMyBookRack(uid: String) {
+        listData.clear()
+
+        try {
+            FirebaseFirestore.getInstance().collection("users")
+                .document(uid)
+                .collection("rak_buku")
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        val model = NovelModel1()
+
+                        model.uid = document.data["uid"].toString()
+
+                        listData.add(model)
+                    }
+                    bookList.postValue(listData)
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents: ", exception)
+                }
+        } catch (error: Exception) {
+            error.printStackTrace()
+        }
+    }
+
+
     fun getBook() : LiveData<ArrayList<NovelModel1>> {
         return bookList
     }
+
 }

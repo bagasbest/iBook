@@ -105,7 +105,7 @@ class CommentActivity : AppCompatActivity() {
                     if(it.isSuccessful) {
                         initRecyclerView()
                         initViewModel()
-                        binding?.commentEt.setText("")
+                        binding?.commentEt?.setText("")
                         Toast.makeText(this, "Berhasil menulis komentar!", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(this, "Gagal menulis komentar!", Toast.LENGTH_SHORT).show()
