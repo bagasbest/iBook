@@ -4,13 +4,13 @@ import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -22,6 +22,7 @@ import com.project.ibook.R
 import com.project.ibook.books.my_book.MyBookActivity
 import com.project.ibook.books.write.WriteActivity
 import com.project.ibook.databinding.FragmentAccountBinding
+import com.project.ibook.ui.account.buy_coin.BuyCoinDashboardActivity
 import java.text.DecimalFormat
 
 class AccountFragment : Fragment() {
@@ -104,11 +105,16 @@ class AccountFragment : Fragment() {
             ImagePicker.with(this)
                 .galleryOnly()
                 .compress(1024)
+                .maxResultSize(1080, 1080)
                 .start(REQUEST_IMAGE_GALLERY)
         }
 
         binding.loginBtn.setOnClickListener {
             startActivity(Intent(activity, MainActivity::class.java))
+        }
+
+        binding.button.setOnClickListener {
+            startActivity(Intent(activity, BuyCoinDashboardActivity::class.java))
         }
     }
 
@@ -116,6 +122,9 @@ class AccountFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == AppCompatActivity.RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_GALLERY) {
+                Glide.with(this)
+                    .load(data?.data)
+                    .into(binding.image)
                 uploadArticleDp(data?.data)
             }
         }
@@ -136,9 +145,6 @@ class AccountFragment : Fragment() {
                     .addOnSuccessListener { uri: Uri ->
                         mProgressDialog.dismiss()
                         image = uri.toString()
-                        Glide.with(this)
-                            .load(image)
-                            .into(binding.image)
                         updateImageInDB()
                     }
                     .addOnFailureListener { e: Exception ->

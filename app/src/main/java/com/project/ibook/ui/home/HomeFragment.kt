@@ -100,7 +100,7 @@ class HomeFragment : Fragment() {
         binding.next2.setOnClickListener {
             val intent = Intent(activity, NovelListActivity::class.java)
             intent.putExtra(NovelListActivity.OPTION, "2")
-            intent.putExtra(NovelListActivity.TITLE, "Pilihan iBook")
+            intent.putExtra(NovelListActivity.TITLE, "Pilihan KoalaNovel")
             startActivity(intent)
         }
 

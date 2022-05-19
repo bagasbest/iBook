@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
 import android.widget.ArrayAdapter
@@ -21,6 +23,8 @@ class MyBookBabAddActivity : AppCompatActivity() {
     private var newBabList = ArrayList<MyBookBabModel>()
     private var isReadMode = false
     private var babStatus: String? = null
+    private var wCount = 0
+
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,11 +63,31 @@ class MyBookBabAddActivity : AppCompatActivity() {
 
 
         binding?.backButton?.setOnClickListener {
-            val intent = Intent(this, BottomNavigationActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            finish()
+           onBackPressed()
         }
+
+        binding?.sinopsis?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(text: Editable?) {
+                if(text.toString().trim().isNotEmpty()) {
+                    wCount = 0
+                    val word = text.toString().trim()
+                    wCount += word.split("\\s+".toRegex()).size
+                    binding?.wordCount?.text = "$wCount / 1200 Kata"
+                } else {
+                    wCount = 0
+                    binding?.wordCount?.text = "0 / 1200 Kata"
+                }
+            }
+
+        })
     }
 
     private fun showDropdownBabStatus() {
@@ -98,6 +122,12 @@ class MyBookBabAddActivity : AppCompatActivity() {
             }
             babStatus == null -> {
                 Toast.makeText(this, "Anda harus memilih status bab ini", Toast.LENGTH_SHORT).show()
+            }
+            babStatus == "Published" && wCount < 1000 -> {
+                Toast.makeText(this, "Isi bab minimal 1000 kata untuk bisa di publish!", Toast.LENGTH_SHORT).show()
+            }
+            wCount > 1200 -> {
+                Toast.makeText(this, "Isi bab maksimal 1200 kata!", Toast.LENGTH_SHORT).show()
             }
             else -> {
 
@@ -146,17 +176,6 @@ class MyBookBabAddActivity : AppCompatActivity() {
             }
         }
 
-    }
-
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            val intent = Intent(this, BottomNavigationActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            finish()
-            return true
-        }
-        return false
     }
 
     override fun onDestroy() {

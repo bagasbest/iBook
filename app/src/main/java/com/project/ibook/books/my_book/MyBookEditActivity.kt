@@ -18,6 +18,8 @@ import com.google.firebase.storage.FirebaseStorage
 import com.project.ibook.BottomNavigationActivity
 import com.project.ibook.R
 import com.project.ibook.databinding.ActivityMyBookEditBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MyBookEditActivity : AppCompatActivity() {
 
@@ -130,6 +132,7 @@ class MyBookEditActivity : AppCompatActivity() {
 
                 val data = mapOf(
                     "title" to title,
+                    "titleTemp" to title.toLowerCase(Locale.ROOT),
                     "genre" to genreList,
                     "synopsis" to synopsis,
                     "image" to image,

@@ -5,6 +5,8 @@ import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -24,6 +26,7 @@ class MyBookBabDetailActivity : AppCompatActivity() {
     private var babList: ArrayList<MyBookBabModel>? = null
     private var newBabList = ArrayList<MyBookBabModel>()
     private var babStatus: String? = null
+    private var wCount = 0
 
     private var isReadMode = true
 
@@ -44,6 +47,10 @@ class MyBookBabDetailActivity : AppCompatActivity() {
             binding?.title?.setText(myBookBabModel?.title)
             binding?.sinopsis?.setText(myBookBabModel?.description)
             babStatus = myBookBabModel?.status
+
+            val word = binding?.sinopsis?.text.toString().trim()
+            wCount += word.split("\\s+".toRegex()).size
+            binding?.wordCount?.text = "$wCount / 1200 Kata"
         } else {
             binding?.description?.visibility = View.VISIBLE
             binding?.description?.text = myBookBabModel?.description
@@ -70,15 +77,35 @@ class MyBookBabDetailActivity : AppCompatActivity() {
         }
 
         binding?.backButton?.setOnClickListener {
-            val intent = Intent(this, BottomNavigationActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            finish()
+          onBackPressed()
         }
 
         binding?.delete?.setOnClickListener {
             showConfirmDeleteDialog()
         }
+
+        binding?.sinopsis?.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(text: Editable?) {
+                if(text.toString().trim().isNotEmpty()) {
+                    wCount = 0
+                    val word = text.toString().trim()
+                    wCount += word.split("\\s+".toRegex()).size
+                    binding?.wordCount?.text = "$wCount / 1200 Kata"
+                } else {
+                    wCount = 0
+                    binding?.wordCount?.text = "0 / 1200 Kata"
+                }
+            }
+
+        })
     }
 
     private fun showDropdownBabStatus() {
@@ -169,6 +196,12 @@ class MyBookBabDetailActivity : AppCompatActivity() {
             description.isEmpty() -> {
                 Toast.makeText(this, "Isi bab tidak boleh kosong!", Toast.LENGTH_SHORT).show()
             }
+            babStatus == "Published" && wCount < 1000 -> {
+                Toast.makeText(this, "Isi bab minimal 1000 kata untuk bisa di publish!", Toast.LENGTH_SHORT).show()
+            }
+            wCount > 1200 -> {
+                Toast.makeText(this, "Isi bab maksimal 1200 kata!", Toast.LENGTH_SHORT).show()
+            }
             else -> {
                 val mProgressDialog = ProgressDialog(this)
                 mProgressDialog.setMessage("Mohon tunggu hingga proses selesai...")
@@ -187,10 +220,6 @@ class MyBookBabDetailActivity : AppCompatActivity() {
 
                 newBabList.addAll(babList!!)
                 newBabList[babNo] = model
-
-                Log.e("tag", babList?.size.toString())
-                Log.e("tag", newBabList.size.toString())
-
 
                 FirebaseFirestore
                     .getInstance()
@@ -213,16 +242,6 @@ class MyBookBabDetailActivity : AppCompatActivity() {
         }
     }
 
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            val intent = Intent(this, BottomNavigationActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            finish()
-            return true
-        }
-        return false
-    }
 
     override fun onDestroy() {
         super.onDestroy()
