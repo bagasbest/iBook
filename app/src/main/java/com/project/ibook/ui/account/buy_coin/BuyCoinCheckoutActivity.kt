@@ -28,11 +28,15 @@ class BuyCoinCheckoutActivity : AppCompatActivity() {
     private var image: String? = null
     private val REQUEST_IMAGE_GALLERY = 1001
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBuyCoinCheckoutBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
+
+        binding?.coin?.text = "Pembelian: ${intent.getIntExtra(COIN, 0)} Koin Emas"
+        binding?.price?.text = "Nominal: ${intent.getStringExtra(PRICE)}"
         showDropdownHomepageCategory()
         binding?.backButton?.setOnClickListener {
             onBackPressed()
@@ -73,10 +77,6 @@ class BuyCoinCheckoutActivity : AppCompatActivity() {
                 binding?.paymentNumber?.text = "No.Hanphone: 0812 3456 7890"
                 binding?.paymentName?.visibility = View.GONE
             }
-
-            binding?.coin?.text = "Pembelian: ${intent.getIntExtra(COIN, 0)}"
-            binding?.price?.text = "Nominal: ${intent.getStringExtra(PRICE)}"
-
         }
     }
 

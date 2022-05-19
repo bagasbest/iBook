@@ -43,10 +43,17 @@ class BuyCoinTransactionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityBuyCoinTransactionBinding.inflate(layoutInflater)
         setContentView(binding?.root)
+
+        binding?.backButton?.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun initRecyclerView() {
-        binding?.rvTransaction?.layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this)
+        layoutManager.reverseLayout = true
+        layoutManager.stackFromEnd = true
+        binding?.rvTransaction?.layoutManager = layoutManager
         adapter = TransactionAdapter()
         binding?.rvTransaction?.adapter = adapter
     }

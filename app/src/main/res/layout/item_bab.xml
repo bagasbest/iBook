@@ -42,16 +42,52 @@
 
     </LinearLayout>
 
-    <com.codesgood.views.JustifiedTextView
+    <TextView
         android:id="@+id/descBab"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="100dp"
         android:ellipsize="end"
         android:maxLines="2"
         android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, "
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleBab" />
+
+    <ImageView
+        android:id="@+id/goldCoin"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_baseline_lock_24"
+        app:layout_constraintBottom_toBottomOf="@+id/descBab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/descBab"
+        app:tint="@color/orange" />
+
+    <ImageView
+        android:id="@+id/silverCoin"
+        android:layout_width="35dp"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone"
+        android:layout_height="35dp"
+        android:src="@drawable/ic_baseline_lock_24"
+        app:layout_constraintBottom_toBottomOf="@+id/descBab"
+        app:layout_constraintEnd_toStartOf="@+id/goldCoin"
+        app:layout_constraintTop_toTopOf="@+id/descBab"
+        app:tint="#CACACA" />
+
+    <ImageView
+        android:id="@+id/menu"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_baseline_menu_24"
+        app:layout_constraintBottom_toBottomOf="@+id/titleBab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/titleBab"
+        app:tint="@color/black" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,13 +4,13 @@ import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -37,6 +37,16 @@ class AccountFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    override fun onResume() {
+        super.onResume()
+        if(FirebaseAuth.getInstance().currentUser != null) {
+            binding.noLogin.visibility = View.GONE
+            binding.content.visibility = View.VISIBLE
+            uid = FirebaseAuth.getInstance().currentUser!!.uid
+            retrieveUserData()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,16 +54,8 @@ class AccountFragment : Fragment() {
     ): View {
 
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        if(FirebaseAuth.getInstance().currentUser != null) {
-            binding.noLogin.visibility = View.GONE
-            binding.content.visibility = View.VISIBLE
-            uid = FirebaseAuth.getInstance().currentUser!!.uid
-            retrieveUserData()
-        }
-
-        return root
+        return binding.root
     }
 
     @SuppressLint("SetTextI18n")
@@ -73,7 +75,7 @@ class AccountFragment : Fragment() {
 
 
                 if(image != "") {
-                    Glide.with(requireContext())
+                    Glide.with(requireActivity())
                         .load(image)
                         .into(binding.image)
                 } else {
@@ -115,6 +117,11 @@ class AccountFragment : Fragment() {
 
         binding.button.setOnClickListener {
             startActivity(Intent(activity, BuyCoinDashboardActivity::class.java))
+        }
+
+        binding.textView13.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/ibook.official.id?igshid=YmMyMTA2M2Y="))
+            startActivity(browserIntent)
         }
     }
 

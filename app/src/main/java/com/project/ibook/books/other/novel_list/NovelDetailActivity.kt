@@ -43,6 +43,7 @@ class NovelDetailActivity : AppCompatActivity() {
     private var homepageCategory: String? = null
     private val formatter = DecimalFormat("#,###")
     private var novelId: String? = null
+    private var role: String? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -389,7 +390,8 @@ class NovelDetailActivity : AppCompatActivity() {
             .document(uid)
             .get()
             .addOnSuccessListener {
-                if("" + it.data!!["role"] == "admin") {
+                role = "" + it.data!!["role"]
+                if(role == "admin") {
                     binding?.adminSide?.visibility = View.VISIBLE
                     binding?.delete?.visibility = View.VISIBLE
                 }
@@ -430,7 +432,7 @@ class NovelDetailActivity : AppCompatActivity() {
                 if(publishedBab.size > 0) {
                     binding?.rvBab?.layoutManager = LinearLayoutManager(this)
                     binding?.bab?.text = "${publishedBab.size}\nBab"
-                    adapter = NovelReadAdapter(publishedBab, novelId)
+                    adapter = NovelReadAdapter(publishedBab, novelId, role, model1?.coins)
                     binding?.rvBab?.adapter = adapter
                 } else {
                     binding?.noData?.visibility = View.VISIBLE
@@ -458,7 +460,7 @@ class NovelDetailActivity : AppCompatActivity() {
                 if(publishedBab.size > 0) {
                     binding?.rvBab?.layoutManager = LinearLayoutManager(this)
                     binding?.bab?.text = "${publishedBab.size}\nBab"
-                    adapter = NovelReadAdapter(publishedBab, novelId)
+                    adapter = NovelReadAdapter(publishedBab, novelId, role, model2?.coins)
                     binding?.rvBab?.adapter = adapter
                 } else {
                     binding?.noData?.visibility = View.VISIBLE
@@ -486,7 +488,7 @@ class NovelDetailActivity : AppCompatActivity() {
                 if(publishedBab.size > 0) {
                     binding?.rvBab?.layoutManager = LinearLayoutManager(this)
                     binding?.bab?.text = "${publishedBab.size}\nBab"
-                    adapter = NovelReadAdapter(publishedBab, novelId)
+                    adapter = NovelReadAdapter(publishedBab, novelId, role, model3?.coins)
                     binding?.rvBab?.adapter = adapter
                 }else {
                     binding?.noData?.visibility = View.VISIBLE
@@ -516,7 +518,7 @@ class NovelDetailActivity : AppCompatActivity() {
                 if(publishedBab.size > 0) {
                     binding?.rvBab?.layoutManager = LinearLayoutManager(this)
                     binding?.bab?.text = "${publishedBab.size}\nBab"
-                    adapter = NovelReadAdapter(publishedBab, novelId)
+                    adapter = NovelReadAdapter(publishedBab, novelId, role, model4?.coins)
                     binding?.rvBab?.adapter = adapter
                 } else {
                     binding?.noData?.visibility = View.VISIBLE
@@ -544,7 +546,7 @@ class NovelDetailActivity : AppCompatActivity() {
                 if(publishedBab.size > 0) {
                     binding?.rvBab?.layoutManager = LinearLayoutManager(this)
                     binding?.bab?.text = "${publishedBab.size}\nBab"
-                    adapter = NovelReadAdapter(publishedBab, novelId)
+                    adapter = NovelReadAdapter(publishedBab, novelId, role, model5?.coins)
                     binding?.rvBab?.adapter = adapter
                 } else {
                     binding?.noData?.visibility = View.VISIBLE

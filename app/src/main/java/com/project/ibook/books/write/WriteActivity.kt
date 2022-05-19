@@ -91,6 +91,7 @@ class WriteActivity : AppCompatActivity() {
                 mProgressDialog.show()
 
                 val uid = System.currentTimeMillis().toString()
+                /// monetization 0 = free reading, 1 = using goldCoin only, 2 = using goldCoin & silverCoin
                 val data = mapOf(
                     "uid" to uid,
                     "title" to title,
@@ -103,6 +104,7 @@ class WriteActivity : AppCompatActivity() {
                     "writerUid" to writerId,
                     "status" to "Draft",
                     "homepageCategory" to "",
+                    "coins" to 0L,
                 )
 
                 FirebaseFirestore

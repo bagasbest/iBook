@@ -15,5 +15,6 @@ data class MyBookModel(
     var image: String? = null,
     var viewTime: Long? = 0L,
     var status: String? = null,
+    var coins: Long? = null,
     var babList: ArrayList<MyBookBabModel>? = null,
 ) : Parcelable

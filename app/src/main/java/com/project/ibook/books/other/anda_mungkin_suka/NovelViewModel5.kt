@@ -33,6 +33,7 @@ class NovelViewModel5 : ViewModel() {
                         model.genre = document.data["genre"] as ArrayList<String>
                         model.image = document.data["image"].toString()
                         model.viewTime = document.data["viewTime"] as Long
+                        model.coins = document.data["coins"] as Long
                         model.babList = document.toObject(NovelModel5::class.java).babList
 
                         listData.add(model)
@@ -68,6 +69,7 @@ class NovelViewModel5 : ViewModel() {
                         model.genre = document.data["genre"] as ArrayList<String>
                         model.image = document.data["image"].toString()
                         model.viewTime = document.data["viewTime"] as Long
+                        model.coins = document.data["coins"] as Long
                         model.babList = document.toObject(NovelModel5::class.java).babList
 
                         listData.add(model)

@@ -9,4 +9,5 @@ data class MyBookBabModel(
     var title: String? = null,
     var description: String? = null,
     var status: String? = null,
+    var monetization: String? = null,
 ) : Parcelable

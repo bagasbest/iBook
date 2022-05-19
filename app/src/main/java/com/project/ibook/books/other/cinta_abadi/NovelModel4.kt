@@ -14,6 +14,7 @@ data class NovelModel4(
     var writerUid: String? = null,
     var image: String? = null,
     var viewTime: Long? = 0L,
+    var coins: Long? = 0L,
     var status: String? = null,
     var babList: ArrayList<MyBookBabModel>? = null,
 ) : Parcelable

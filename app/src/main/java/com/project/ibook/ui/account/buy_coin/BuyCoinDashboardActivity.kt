@@ -70,6 +70,10 @@ class BuyCoinDashboardActivity : AppCompatActivity() {
         binding?.transactionBtn?.setOnClickListener {
             startActivity(Intent(this, BuyCoinTransactionActivity::class.java))
         }
+
+        binding?.backButton?.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun onDestroy() {

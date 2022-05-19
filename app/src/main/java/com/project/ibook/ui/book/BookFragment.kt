@@ -78,11 +78,9 @@ class BookFragment : Fragment() {
         viewModel.getBook().observe(viewLifecycleOwner) { bookUidList ->
             if (bookUidList.size > 0) {
                 novelUidList.clear()
-                Log.e("tag", "yes")
                 binding.noData.visibility = View.GONE
                 novelUidList.addAll(bookUidList)
             } else {
-                Log.e("tag", "no")
                 novelUidList.clear()
                 binding.progressBar.visibility = View.GONE
                 binding.noData.visibility = View.VISIBLE

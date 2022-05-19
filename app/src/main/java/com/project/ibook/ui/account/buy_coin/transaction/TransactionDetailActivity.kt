@@ -3,6 +3,7 @@ package com.project.ibook.ui.account.buy_coin.transaction
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
@@ -78,8 +79,9 @@ class TransactionDetailActivity : AppCompatActivity() {
                     binding?.decline?.visibility = View.GONE
                     binding?.status?.text = "Pembayaran Diterima"
                     addCoinToUser()
-                    showSuccessDialog("Berhasil Menerima Pembayaran", "Koin otomatis ditambahkan ke akun pengguna!")
+
                 } else {
+                    binding?.progressBar?.visibility = View.GONE
                     showFailureDialog("Gagal Menerima Pembayaran")
                 }
             }
@@ -93,12 +95,20 @@ class TransactionDetailActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener {
                 val goldCoin = it.data!!["goldCoin"] as Long
-
                 FirebaseFirestore
                     .getInstance()
                     .collection("users")
-                    .document()
+                    .document(model?.userId!!)
                     .update("goldCoin", goldCoin + model?.coin!!)
+                    .addOnCompleteListener { task ->
+                        if(task.isSuccessful) {
+                            binding?.progressBar?.visibility = View.GONE
+                            showSuccessDialog("Berhasil Menerima Pembayaran", "Koin otomatis ditambahkan ke akun pengguna!")
+                        } else {
+                            binding?.progressBar?.visibility = View.GONE
+                            showFailureDialog("Gagal Menerima Pembayaran")
+                        }
+                    }
             }
     }
 
@@ -114,8 +124,10 @@ class TransactionDetailActivity : AppCompatActivity() {
                     binding?.acc?.visibility = View.GONE
                     binding?.decline?.visibility = View.GONE
                     binding?.status?.text = "Pembayaran Ditolak"
+                    binding?.progressBar?.visibility = View.GONE
                     showSuccessDialog("Berhasil Menolak Pembayaran", "Pembayaran ini ditolak!")
                 } else {
+                    binding?.progressBar?.visibility = View.GONE
                     showFailureDialog("Gagal Menolak Pembayaran")
                 }
             }
@@ -156,7 +168,8 @@ class TransactionDetailActivity : AppCompatActivity() {
             .document(uid)
             .get()
             .addOnSuccessListener {
-                if("" + it.data!!["role"] == "admin" && "" + it.data!!["status"] == "Menunggu Verifikasi") {
+
+                if("" + it.data!!["role"] == "admin" && model?.status == "Menunggu Verifikasi") {
                     binding?.acc?.visibility = View.VISIBLE
                     binding?.decline?.visibility = View.VISIBLE
                 }
