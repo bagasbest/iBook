@@ -7,6 +7,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class NovelModel4(
     var title: String? = null,
+    var titleTemp: String? = null,
+    var homepageCategory: String? = null,
     var uid: String? = null,
     var synopsis: String? = null,
     var genre: ArrayList<String>? = null,

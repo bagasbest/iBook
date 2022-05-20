@@ -9,8 +9,8 @@
     android:layout_height="wrap_content">
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:layout_width="130dp"
-        android:layout_height="150dp"
+        android:layout_width="110dp"
+        android:layout_height="140dp"
         app:riv_corner_radius="10dp"
         android:id="@+id/image"
         android:scaleType="centerCrop"

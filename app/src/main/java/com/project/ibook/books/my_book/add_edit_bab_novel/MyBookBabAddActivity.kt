@@ -144,6 +144,8 @@ class MyBookBabAddActivity : AppCompatActivity() {
                     title = title,
                     description = description,
                     status = babStatus,
+                    monetization = "0",
+
                 )
 
 

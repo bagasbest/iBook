@@ -10,4 +10,5 @@ data class MyBookBabModel(
     var description: String? = null,
     var status: String? = null,
     var monetization: String? = null,
+    var unlock: ArrayList<String>? = ArrayList(),
 ) : Parcelable

@@ -94,21 +94,24 @@ class BookFragment : Fragment() {
                     .document(novelUidList[i].uid!!)
                     .get()
                     .addOnSuccessListener { document ->
-                        val model = NovelModel1()
 
-                        model.title = document.data!!["title"].toString()
-                        model.uid = document.data!!["uid"].toString()
-                        model.synopsis = document.data!!["synopsis"].toString()
-                        model.status = document.data!!["status"].toString()
-                        model.writerName = document.data!!["writerName"].toString()
-                        model.writerUid = document.data!!["writerUid"].toString()
-                        model.genre = document.data!!["genre"] as ArrayList<String>
-                        model.image = document.data!!["image"].toString()
-                        model.viewTime = document.data!!["viewTime"] as Long
-                        model.babList = document.toObject(NovelModel1::class.java)?.babList
+                        if(document.exists()) {
+                            val model = NovelModel1()
+
+                            model.title = document.data!!["title"].toString()
+                            model.uid = document.data!!["uid"].toString()
+                            model.synopsis = document.data!!["synopsis"].toString()
+                            model.status = document.data!!["status"].toString()
+                            model.writerName = document.data!!["writerName"].toString()
+                            model.writerUid = document.data!!["writerUid"].toString()
+                            model.genre = document.data!!["genre"] as ArrayList<String>
+                            model.image = document.data!!["image"].toString()
+                            model.viewTime = document.data!!["viewTime"] as Long
+                            model.babList = document.toObject(NovelModel1::class.java)?.babList
 
 
-                        novelList.add(model)
+                            novelList.add(model)
+                        }
                     }
             }
 

@@ -5,6 +5,7 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class NovelReadAdapter(
         fun bind(model: MyBookBabModel, position: Int) {
             with(binding) {
 
+                val uid = FirebaseAuth.getInstance().currentUser!!.uid
                 titleBab.text = model.title
                 descBab.text = model.description
 
@@ -63,25 +65,48 @@ class NovelReadAdapter(
                             intent.putExtra(NovelReadActivity.BAB_LIST, babList)
                             intent.putExtra(NovelReadActivity.BAB_NO, position)
                             intent.putExtra(NovelReadActivity.NOVEL_ID, novelId)
+                            intent.putExtra(NovelReadActivity.COINS, coins)
                             itemView.context.startActivity(intent)
                         }
                         "1" -> {
                             binding.goldCoin.visibility = View.VISIBLE
                             binding.silverCoin.visibility = View.GONE
 
-                            sendGoldCoinUserToNovel(itemView.context, position)
+                            if(model.unlock?.contains(uid) == true) {
+                                val intent = Intent(itemView.context, NovelReadActivity::class.java)
+                                intent.putExtra(NovelReadActivity.BAB_LIST, babList)
+                                intent.putExtra(NovelReadActivity.BAB_NO, position)
+                                intent.putExtra(NovelReadActivity.NOVEL_ID, novelId)
+                                intent.putExtra(NovelReadActivity.COINS, coins)
+                                itemView.context.startActivity(intent)
+                            } else {
+                                sendGoldCoinUserToNovel(itemView.context, position)
+                            }
                         }
                         "2" -> {
                             binding.goldCoin.visibility = View.VISIBLE
                             binding.silverCoin.visibility = View.VISIBLE
 
-                            chooseGoldOrSilverCoins(itemView.context, position)
+                            Log.e("taf", position.toString())
+
+                            if(model.unlock?.contains(uid) == true) {
+                                val intent = Intent(itemView.context, NovelReadActivity::class.java)
+                                intent.putExtra(NovelReadActivity.BAB_LIST, babList)
+                                intent.putExtra(NovelReadActivity.BAB_NO, position)
+                                intent.putExtra(NovelReadActivity.NOVEL_ID, novelId)
+                                intent.putExtra(NovelReadActivity.COINS, coins)
+                                itemView.context.startActivity(intent)
+                            }  else {
+                                chooseGoldOrSilverCoins(itemView.context, position)
+                            }
+
                         }
                         else -> {
                             val intent = Intent(itemView.context, NovelReadActivity::class.java)
                             intent.putExtra(NovelReadActivity.BAB_LIST, babList)
                             intent.putExtra(NovelReadActivity.BAB_NO, position)
                             intent.putExtra(NovelReadActivity.NOVEL_ID, novelId)
+                            intent.putExtra(NovelReadActivity.COINS, coins)
                             itemView.context.startActivity(intent)
                         }
                     }
@@ -113,7 +138,10 @@ class NovelReadAdapter(
 
     }
 
-    private fun chooseGoldOrSilverCoins(context: Context, position: Int) {
+    private fun chooseGoldOrSilverCoins(
+        context: Context,
+        position: Int,
+    ) {
         val options = arrayOf("Koin Emas", "Koin Perak")
 
         val builder = AlertDialog.Builder(context)
@@ -132,7 +160,10 @@ class NovelReadAdapter(
         builder.create().show()
     }
 
-    private fun sendSilverCoinUserToNovel(context: Context, position: Int) {
+    private fun sendSilverCoinUserToNovel(
+        context: Context,
+        position: Int,
+    ) {
 
         val mProgressDialog = ProgressDialog(context)
         mProgressDialog.setMessage("Mohon tunggu hingga proses selesai...")
@@ -140,6 +171,7 @@ class NovelReadAdapter(
         mProgressDialog.show()
 
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
+
         FirebaseFirestore
             .getInstance()
             .collection("users")
@@ -149,6 +181,8 @@ class NovelReadAdapter(
                 val silverCoin = it.data!!["silverCoin"] as Long
 
                 if(silverCoin - 1 >= 0) {
+                    babList[position].unlock?.add(uid)
+
                     /// update sisa gold coin
                     FirebaseFirestore
                         .getInstance()
@@ -158,11 +192,15 @@ class NovelReadAdapter(
 
                     /// send coin to novel
                     coins = coins?.plus(1)
+                    val updateNovel = mapOf(
+                        "coins" to coins,
+                        "babList" to babList,
+                    )
                     FirebaseFirestore
                         .getInstance()
                         .collection("novel")
                         .document(novelId!!)
-                        .update("coins", coins)
+                        .update(updateNovel)
                         .addOnCompleteListener { task ->
                             if(task.isSuccessful) {
                                 mProgressDialog.dismiss()
@@ -170,6 +208,7 @@ class NovelReadAdapter(
                                 intent.putExtra(NovelReadActivity.BAB_LIST, babList)
                                 intent.putExtra(NovelReadActivity.BAB_NO, position)
                                 intent.putExtra(NovelReadActivity.NOVEL_ID, novelId)
+                                intent.putExtra(NovelReadActivity.COINS, coins)
                                 context.startActivity(intent)
                             } else {
                                 mProgressDialog.dismiss()
@@ -183,7 +222,10 @@ class NovelReadAdapter(
             }
     }
 
-    private fun sendGoldCoinUserToNovel(context: Context, position: Int) {
+    private fun sendGoldCoinUserToNovel(
+        context: Context,
+        position: Int,
+    ) {
 
         val mProgressDialog = ProgressDialog(context)
         mProgressDialog.setMessage("Mohon tunggu hingga proses selesai...")
@@ -191,6 +233,7 @@ class NovelReadAdapter(
         mProgressDialog.show()
 
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
+
         FirebaseFirestore
             .getInstance()
             .collection("users")
@@ -200,6 +243,7 @@ class NovelReadAdapter(
                 val goldCoin = it.data!!["goldCoin"] as Long
 
                 if(goldCoin - 1 >= 0) {
+                    babList[position].unlock?.add(uid)
                     /// update sisa gold coin
                     FirebaseFirestore
                         .getInstance()
@@ -209,11 +253,17 @@ class NovelReadAdapter(
 
                     /// send coin to novel
                     coins = coins?.plus(1)
+
+                    val updateNovel = mapOf(
+                        "coins" to coins,
+                        "babList" to babList,
+                    )
+
                     FirebaseFirestore
                         .getInstance()
                         .collection("novel")
                         .document(novelId!!)
-                        .update("coins", coins)
+                        .update(updateNovel)
                         .addOnCompleteListener { task ->
                             if(task.isSuccessful) {
                                 mProgressDialog.dismiss()
@@ -221,6 +271,7 @@ class NovelReadAdapter(
                                 intent.putExtra(NovelReadActivity.BAB_LIST, babList)
                                 intent.putExtra(NovelReadActivity.BAB_NO, position)
                                 intent.putExtra(NovelReadActivity.NOVEL_ID, novelId)
+                                intent.putExtra(NovelReadActivity.COINS, coins)
                                 context.startActivity(intent)
                             } else {
                                 mProgressDialog.dismiss()

@@ -28,6 +28,8 @@ class NovelViewModel1 : ViewModel() {
                         model.uid = document.data["uid"].toString()
                         model.synopsis = document.data["synopsis"].toString()
                         model.status = document.data["status"].toString()
+                        model.titleTemp = document.data["titleTemp"].toString()
+                        model.homepageCategory = document.data["homepageCategory"].toString()
                         model.writerName = document.data["writerName"].toString()
                         model.writerUid = document.data["writerUid"].toString()
                         model.genre = document.data["genre"] as ArrayList<String>
@@ -63,6 +65,8 @@ class NovelViewModel1 : ViewModel() {
                         model.title = document.data["title"].toString()
                         model.uid = document.data["uid"].toString()
                         model.synopsis = document.data["synopsis"].toString()
+                        model.titleTemp = document.data["titleTemp"].toString()
+                        model.homepageCategory = document.data["homepageCategory"].toString()
                         model.status = document.data["status"].toString()
                         model.writerName = document.data["writerName"].toString()
                         model.writerUid = document.data["writerUid"].toString()

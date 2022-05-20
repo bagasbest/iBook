@@ -37,16 +37,6 @@ class AccountFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onResume() {
-        super.onResume()
-        if(FirebaseAuth.getInstance().currentUser != null) {
-            binding.noLogin.visibility = View.GONE
-            binding.content.visibility = View.VISIBLE
-            uid = FirebaseAuth.getInstance().currentUser!!.uid
-            retrieveUserData()
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,6 +44,13 @@ class AccountFragment : Fragment() {
     ): View {
 
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
+
+        if(FirebaseAuth.getInstance().currentUser != null) {
+            binding.noLogin.visibility = View.GONE
+            binding.content.visibility = View.VISIBLE
+            uid = FirebaseAuth.getInstance().currentUser!!.uid
+            retrieveUserData()
+        }
 
         return binding.root
     }
@@ -75,7 +72,7 @@ class AccountFragment : Fragment() {
 
 
                 if(image != "") {
-                    Glide.with(requireActivity())
+                    Glide.with(requireContext())
                         .load(image)
                         .into(binding.image)
                 } else {
@@ -107,7 +104,6 @@ class AccountFragment : Fragment() {
             ImagePicker.with(this)
                 .galleryOnly()
                 .compress(1024)
-                .maxResultSize(1080, 1080)
                 .start(REQUEST_IMAGE_GALLERY)
         }
 
@@ -129,10 +125,10 @@ class AccountFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == AppCompatActivity.RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_GALLERY) {
-                Glide.with(this)
+                Glide.with(requireContext())
                     .load(data?.data)
                     .into(binding.image)
-                uploadArticleDp(data?.data)
+               uploadArticleDp(data?.data)
             }
         }
     }

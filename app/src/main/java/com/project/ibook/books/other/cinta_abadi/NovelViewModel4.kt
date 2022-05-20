@@ -26,6 +26,8 @@ class NovelViewModel4 : ViewModel() {
                         val model = NovelModel4()
 
                         model.title = document.data["title"].toString()
+                        model.titleTemp = document.data["titleTemp"].toString()
+                        model.homepageCategory = document.data["homepageCategory"].toString()
                         model.uid = document.data["uid"].toString()
                         model.synopsis = document.data["synopsis"].toString()
                         model.status = document.data["status"].toString()
@@ -64,6 +66,8 @@ class NovelViewModel4 : ViewModel() {
 
                         model.title = document.data["title"].toString()
                         model.uid = document.data["uid"].toString()
+                        model.titleTemp = document.data["titleTemp"].toString()
+                        model.homepageCategory = document.data["homepageCategory"].toString()
                         model.synopsis = document.data["synopsis"].toString()
                         model.status = document.data["status"].toString()
                         model.writerName = document.data["writerName"].toString()
