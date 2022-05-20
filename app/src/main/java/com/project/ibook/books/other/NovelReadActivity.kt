@@ -1,17 +1,26 @@
 package com.project.ibook.books.other
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
+import android.view.KeyEvent
 import android.view.WindowManager
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.project.ibook.books.my_book.add_edit_bab_novel.MyBookBabModel
 import com.project.ibook.databinding.ActivityNovelReadBinding
 import com.project.ibook.utils.AddBookToMyRack
+
 
 class NovelReadActivity : AppCompatActivity() {
 
     private var binding: ActivityNovelReadBinding? = null
     private var babList = ArrayList<MyBookBabModel>()
+    private var timeLeftInMillis: Long = 0
+    private var countDownTimer: CountDownTimer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +34,7 @@ class NovelReadActivity : AppCompatActivity() {
         var babNo = intent.getIntExtra(BAB_NO, 0)
         checkBabNumber(babNo)
         initView(babNo)
+        countdownTimer()
 
         binding?.prev?.setOnClickListener {
             babNo--
@@ -39,8 +49,43 @@ class NovelReadActivity : AppCompatActivity() {
         }
 
         binding?.backButton?.setOnClickListener {
+            countDownTimer?.cancel();
             onBackPressed()
         }
+    }
+
+    private fun countdownTimer() {
+        timeLeftInMillis = 1800000
+        countDownTimer = object : CountDownTimer(timeLeftInMillis, 1000) {
+            override fun onTick(l: Long) {
+                timeLeftInMillis = l
+            }
+
+            @SuppressLint("SetTextI18n")
+            override fun onFinish() {
+                getSilverCoin()
+                countdownTimer()
+                Toast.makeText(this@NovelReadActivity, "Mendapatkan 1 koin perak", Toast.LENGTH_SHORT).show()
+            }
+        }.start()
+    }
+
+    private fun getSilverCoin() {
+        val uid = FirebaseAuth.getInstance().currentUser!!.uid
+        FirebaseFirestore
+            .getInstance()
+            .collection("users")
+            .document(uid)
+            .get()
+            .addOnSuccessListener {
+                val silverCoin = it.data!!["silverCoin"] as Long
+
+                FirebaseFirestore
+                    .getInstance()
+                    .collection("users")
+                    .document(uid)
+                    .update("silverCoin", silverCoin+1)
+            }
     }
 
     private fun checkBabNumber(babNo: Int) {
@@ -69,6 +114,15 @@ class NovelReadActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         binding = null
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            countDownTimer!!.cancel()
+            onBackPressed()
+            return true
+        }
+        return false
     }
 
     companion object {

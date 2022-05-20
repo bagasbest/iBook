@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -152,6 +153,9 @@ class HomeFragment : Fragment() {
     private fun initRecyclerView1() {
         Handler().postDelayed({
             if (novelList1.size > 0) {
+                novelList1.sortByDescending { it.coins }
+
+
                 binding.rv1.layoutManager = StaggeredGridLayoutManager(
                     2,
                     StaggeredGridLayoutManager.HORIZONTAL

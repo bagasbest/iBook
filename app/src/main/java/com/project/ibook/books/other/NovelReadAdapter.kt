@@ -77,6 +77,13 @@ class NovelReadAdapter(
 
                             chooseGoldOrSilverCoins(itemView.context, position)
                         }
+                        else -> {
+                            val intent = Intent(itemView.context, NovelReadActivity::class.java)
+                            intent.putExtra(NovelReadActivity.BAB_LIST, babList)
+                            intent.putExtra(NovelReadActivity.BAB_NO, position)
+                            intent.putExtra(NovelReadActivity.NOVEL_ID, novelId)
+                            itemView.context.startActivity(intent)
+                        }
                     }
                 }
 

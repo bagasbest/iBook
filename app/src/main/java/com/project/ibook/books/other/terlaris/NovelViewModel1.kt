@@ -19,7 +19,6 @@ class NovelViewModel1 : ViewModel() {
         try {
             FirebaseFirestore.getInstance().collection("novel")
                 .whereEqualTo("status", "Published")
-                .whereEqualTo("homepageCategory", "Terlaris")
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
@@ -55,7 +54,6 @@ class NovelViewModel1 : ViewModel() {
         try {
             FirebaseFirestore.getInstance().collection("novel")
                 .whereEqualTo("status", "Published")
-                .whereEqualTo("homepageCategory", "Terlaris")
                 .limit(50)
                 .get()
                 .addOnSuccessListener { documents ->

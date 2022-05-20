@@ -66,10 +66,12 @@ class NovelListActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         Handler().postDelayed({
-            val layoutManager = LinearLayoutManager(this)
-            layoutManager.reverseLayout = true
-            layoutManager.stackFromEnd = true
-            binding?.rvNovel?.layoutManager = layoutManager
+            novelList1.sortByDescending { it.coins }
+            novelList2.sortByDescending { it.coins }
+            novelList3.sortByDescending { it.coins }
+            novelList4.sortByDescending { it.coins }
+            novelList5.sortByDescending { it.coins }
+            binding?.rvNovel?.layoutManager = LinearLayoutManager(this)
             adapter =
                 NovelListAdapter(novelList1, novelList2, novelList3, novelList4, novelList5, option!!)
             binding?.rvNovel?.adapter = adapter
