@@ -222,7 +222,7 @@ class NovelDetailActivity : AppCompatActivity() {
     private fun showMenuPicker() {
         val inRackBookOrNot = intent.getStringExtra(IN_RAK_BUKU)
         if(inRackBookOrNot != null) {
-            val options = arrayOf("Semua Komentar", "Tambahkan ke Rak Buku", "Hapus dari Rak Buku", "Bagikan")
+            val options = arrayOf("Semua Komentar", "Hapus dari Rak Buku", "Bagikan")
 
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Pilihan")
@@ -235,10 +235,14 @@ class NovelDetailActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                     1 -> {
-                        AddBookToMyRack.addBook(novelId, this, "add")
+                        AddBookToMyRack.deleteRack(novelId, this)
                     }
                     2 -> {
-                        AddBookToMyRack.deleteRack(novelId, this,)
+                        val sendIntent = Intent()
+                        sendIntent.action = Intent.ACTION_SEND
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Hai, saya sekarang lagi membaca novel ''${binding?.textView4?.text.toString().trim()}'', jika kamu ingin membaca novel terbaik, cepat download aplikasi KoalaNovel di Playstore!")
+                        sendIntent.type = "text/plain"
+                        startActivity(sendIntent)
                     }
                 }
             }
@@ -260,7 +264,11 @@ class NovelDetailActivity : AppCompatActivity() {
                         AddBookToMyRack.addBook(novelId, this, "add")
                     }
                     2 -> {
-
+                        val sendIntent = Intent()
+                        sendIntent.action = Intent.ACTION_SEND
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Hai, saya sekarang lagi membaca novel ''${binding?.textView4?.text.toString().trim()}'', jika kamu ingin membaca novel terbaik, cepat download aplikasi KoalaNovel di Playstore!")
+                        sendIntent.type = "text/plain"
+                        startActivity(sendIntent)
                     }
                 }
             }

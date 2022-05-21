@@ -1,5 +1,6 @@
 package com.project.ibook.ui.book
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -27,11 +28,13 @@ class BookFragment : Fragment() {
     private var adapter: BookAdapter? = null
     private var novelList = ArrayList<NovelModel1>()
     private var novelUidList = ArrayList<NovelModel1>()
+    private var mProgressDialog: ProgressDialog? = null
 
     override fun onResume() {
         super.onResume()
         novelList.clear()
         novelUidList.clear()
+        progressDialog()
         checkIsLoginOrNot()
     }
 
@@ -65,7 +68,7 @@ class BookFragment : Fragment() {
         adapter = BookAdapter(novelList)
         binding.rvBook.adapter = adapter
         binding.progressBar.visibility = View.GONE
-
+        mProgressDialog?.dismiss()
     }
 
     private fun initViewModel() {
@@ -130,6 +133,14 @@ class BookFragment : Fragment() {
             startActivity(Intent(activity, MainActivity::class.java))
         }
     }
+
+    private fun progressDialog() {
+        mProgressDialog = ProgressDialog(activity)
+        mProgressDialog?.setMessage("Mohon tunggu hingga proses selesai...")
+        mProgressDialog?.setCanceledOnTouchOutside(false)
+        mProgressDialog?.show()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

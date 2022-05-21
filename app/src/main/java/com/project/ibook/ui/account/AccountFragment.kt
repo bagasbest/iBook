@@ -119,6 +119,14 @@ class AccountFragment : Fragment() {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/ibook.official.id?igshid=YmMyMTA2M2Y="))
             startActivity(browserIntent)
         }
+
+        binding.textView11.setOnClickListener {
+            val sendIntent = Intent()
+            sendIntent.action = Intent.ACTION_SEND
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Hai, jika kamu ingin membaca kumpulan novel terbaik, silahkan download aplikasi KoalaNovel di Playstore!")
+            sendIntent.type = "text/plain"
+            startActivity(sendIntent)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
