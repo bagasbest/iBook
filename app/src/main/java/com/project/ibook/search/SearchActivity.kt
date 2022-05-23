@@ -2,6 +2,7 @@ package com.project.ibook.search
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -15,13 +16,22 @@ class SearchActivity : AppCompatActivity() {
     private var binding: ActivitySearchBinding? = null
     private var adapter: SearchAdapter? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        initRecyclerView()
-        initViewModel("all")
+        if(intent.getStringExtra(NOVEL_ID_DEEPLINK) != null) {
+            val  novelId = intent.getStringExtra(NOVEL_ID_DEEPLINK)
+            initRecyclerViewDeepLink()
+            initViewModelDeepLink(novelId)
+        } else {
+            initRecyclerView()
+            initViewModel("all")
+
+        }
+
 
         binding?.cancelBtn?.setOnClickListener {
             onBackPressed()
@@ -50,9 +60,30 @@ class SearchActivity : AppCompatActivity() {
         })
     }
 
+    private fun initRecyclerViewDeepLink() {
+            binding?.rvBook?.layoutManager = LinearLayoutManager(this)
+            adapter = SearchAdapter("deepLink")
+            binding?.rvBook?.adapter = adapter
+    }
+
+    private fun initViewModelDeepLink(novelId: String?) {
+        val viewModel = ViewModelProvider(this)[SearchViewModel::class.java]
+        binding?.progressBar?.visibility = View.VISIBLE
+        viewModel.setNovelById(novelId!!)
+        viewModel.getBook().observe(this) { bookList ->
+            if (bookList.size > 0) {
+                binding?.noData?.visibility = View.GONE
+                adapter?.setData(bookList)
+            } else {
+                binding?.noData?.visibility = View.VISIBLE
+            }
+            binding!!.progressBar.visibility = View.GONE
+        }
+    }
+
     private fun initRecyclerView() {
         binding?.rvBook?.layoutManager = LinearLayoutManager(this)
-        adapter = SearchAdapter()
+        adapter = SearchAdapter("manual")
         binding?.rvBook?.adapter = adapter
     }
 
@@ -78,5 +109,9 @@ class SearchActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         binding = null
+    }
+
+    companion object {
+        const val NOVEL_ID_DEEPLINK = "novelId"
     }
 }

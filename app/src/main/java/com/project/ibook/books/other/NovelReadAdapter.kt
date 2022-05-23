@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.project.ibook.books.my_book.add_edit_bab_novel.MyBookBabModel
 import com.project.ibook.databinding.ItemBabBinding
+import com.project.ibook.ui.account.buy_coin.BuyCoinDashboardActivity
 
 class NovelReadAdapter(
     private var babList: ArrayList<MyBookBabModel>,
@@ -39,6 +40,10 @@ class NovelReadAdapter(
                     menu.visibility = View.VISIBLE
                 }
 
+
+                /// 0 : Free Bab, tidak membutuhkan koin, langsung bisa membaca bab novel
+                /// 1 : Gold Coin, Membutuhkan gold coin untuk membaca
+                /// 2 : Gold & Silver Coin, membutuhkan gold / silver coin untuk membaca
 
                 when (model.monetization) {
                     "0" -> {
@@ -86,8 +91,6 @@ class NovelReadAdapter(
                         "2" -> {
                             binding.goldCoin.visibility = View.VISIBLE
                             binding.silverCoin.visibility = View.VISIBLE
-
-                            Log.e("taf", position.toString())
 
                             if(model.unlock?.contains(uid) == true) {
                                 val intent = Intent(itemView.context, NovelReadActivity::class.java)
@@ -217,7 +220,8 @@ class NovelReadAdapter(
                         }
                 } else {
                     mProgressDialog.dismiss()
-                    Toast.makeText(context, "Jumlah koin perak tidak mencukupi!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Silahkan membeli koin untuk membaca bab ini!", Toast.LENGTH_SHORT).show()
+                    context.startActivity(Intent(context, BuyCoinDashboardActivity::class.java))
                 }
             }
     }
@@ -280,7 +284,8 @@ class NovelReadAdapter(
                         }
                 } else {
                     mProgressDialog.dismiss()
-                    Toast.makeText(context, "Jumlah koin emas tidak mencukupi!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Silahkan membeli koin untuk membaca bab ini!", Toast.LENGTH_SHORT).show()
+                    context.startActivity(Intent(context, BuyCoinDashboardActivity::class.java))
                 }
             }
     }

@@ -240,7 +240,7 @@ class NovelDetailActivity : AppCompatActivity() {
                     2 -> {
                         val sendIntent = Intent()
                         sendIntent.action = Intent.ACTION_SEND
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Hai, saya sekarang lagi membaca novel ''${binding?.textView4?.text.toString().trim()}'', jika kamu ingin membaca novel terbaik, cepat download aplikasi KoalaNovel di Playstore!")
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Hai, saya sekarang lagi membaca novel ''${binding?.textView4?.text.toString().trim()}'', jika kamu ingin membaca novel terbaik, cepat download aplikasi KoalaNovel di Playstore!\n\nKalo kamu sudah download aplikasi KoalaNovel, kamu bisa klik link berikut: https://www.koalanovel.com/v1/$novelId untuk membaca novel diatas")
                         sendIntent.type = "text/plain"
                         startActivity(sendIntent)
                     }
@@ -266,7 +266,7 @@ class NovelDetailActivity : AppCompatActivity() {
                     2 -> {
                         val sendIntent = Intent()
                         sendIntent.action = Intent.ACTION_SEND
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Hai, saya sekarang lagi membaca novel ''${binding?.textView4?.text.toString().trim()}'', jika kamu ingin membaca novel terbaik, cepat download aplikasi KoalaNovel di Playstore!")
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Hai, saya sekarang lagi membaca novel ''${binding?.textView4?.text.toString().trim()}'', jika kamu ingin membaca novel terbaik, cepat download aplikasi KoalaNovel di Playstore!\n\nKalo kamu sudah download aplikasi KoalaNovel, kamu bisa klik link berikut: https://www.koalanovel.com/v1/$novelId untuk membaca novel diatas")
                         sendIntent.type = "text/plain"
                         startActivity(sendIntent)
                     }

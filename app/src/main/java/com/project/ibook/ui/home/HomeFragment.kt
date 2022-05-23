@@ -8,10 +8,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.firebase.auth.FirebaseAuth
@@ -46,7 +48,6 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
     override fun onResume() {
         super.onResume()
         if(FirebaseAuth.getInstance().currentUser == null) {
@@ -78,7 +79,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         binding.logoutBtn.setOnClickListener {
             if(FirebaseAuth.getInstance().currentUser != null) {
@@ -170,7 +170,7 @@ class HomeFragment : Fragment() {
                 )
                 binding.rv1.adapter = adapter
             }
-        }, 2000)
+        }, 2500)
     }
 
     private fun initViewModel1() {
@@ -203,7 +203,7 @@ class HomeFragment : Fragment() {
                 )
                 binding.rv2.adapter = adapter
             }
-        }, 2000)
+        }, 2500)
     }
 
     private fun initViewModel2() {
@@ -237,7 +237,7 @@ class HomeFragment : Fragment() {
                 )
                 binding.rv3.adapter = adapter
             }
-        }, 2000)
+        }, 2500)
     }
 
     private fun initViewModel3() {
@@ -270,7 +270,7 @@ class HomeFragment : Fragment() {
                 )
                 binding.rv4.adapter = adapter
             }
-        }, 2000)
+        }, 2500)
     }
 
     private fun initViewModel4() {
@@ -307,7 +307,7 @@ class HomeFragment : Fragment() {
                 binding.rv5.adapter = adapter
             }
          mProgressDialog?.dismiss()
-        }, 2000)
+        }, 2500)
     }
 
     private fun initViewModel5() {

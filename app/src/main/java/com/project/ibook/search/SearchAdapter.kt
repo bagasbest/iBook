@@ -10,9 +10,10 @@ import com.project.ibook.books.other.novel_list.NovelDetailActivity
 import com.project.ibook.books.other.anda_mungkin_suka.NovelModel5
 import com.project.ibook.databinding.ItemNovelVerticalBinding
 
-class SearchAdapter : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
+class SearchAdapter(private val option: String) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
     private val novelList = ArrayList<NovelModel5>()
+
     @SuppressLint("NotifyDataSetChanged")
     fun setData(items: ArrayList<NovelModel5>) {
         novelList.clear()
@@ -21,7 +22,8 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
     }
 
 
-    inner class ViewHolder(private val binding: ItemNovelVerticalBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemNovelVerticalBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(model: NovelModel5) {
             with(binding) {
@@ -37,13 +39,20 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
                     intent.putExtra(NovelDetailActivity.EXTRA_DATA, model)
                     itemView.context.startActivity(intent)
                 }
+
+                if (option == "deepLink") {
+                    val intent = Intent(itemView.context, NovelDetailActivity::class.java)
+                    intent.putExtra(NovelDetailActivity.EXTRA_DATA, model)
+                    itemView.context.startActivity(intent)
+                }
             }
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemNovelVerticalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemNovelVerticalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 

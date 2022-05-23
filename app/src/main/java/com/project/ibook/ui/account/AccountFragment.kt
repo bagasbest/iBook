@@ -116,7 +116,7 @@ class AccountFragment : Fragment() {
         }
 
         binding.textView13.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/ibook.official.id?igshid=YmMyMTA2M2Y="))
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/koalanovel.id?igshid=YmMyMTA2M2Y"))
             startActivity(browserIntent)
         }
 
