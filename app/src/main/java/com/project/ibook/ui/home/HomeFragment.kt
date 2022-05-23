@@ -66,6 +66,7 @@ class HomeFragment : Fragment() {
     ): View {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding.rv5.isNestedScrollingEnabled = false
 
         return binding.root
     }
@@ -133,7 +134,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun initView() {
-
         initRecyclerView1()
         initViewModel1()
 

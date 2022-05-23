@@ -1,6 +1,9 @@
 package com.project.ibook.ui.account.buy_coin.transaction
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -46,6 +49,33 @@ class TransactionDetailActivity : AppCompatActivity() {
         binding?.decline?.setOnClickListener {
             showConfirmDialog("Menolak")
         }
+
+        binding?.reminderBtn?.setOnClickListener {
+            val number = "85368216551"
+            val message = "Halo, saya membeli ${model?.coin} Koin, silahkan verifikasi pembayaran saya!, terima kasih"
+
+            val installed: Boolean = isAppInstalled()
+
+            if(installed) {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse("https://api.whatsapp.com/send?phone=+62$number&text=$message")
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun isAppInstalled(): Boolean {
+        val packageManager = packageManager
+        var isInstalled: Boolean
+
+        try {
+            packageManager.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES)
+            isInstalled = true
+        } catch (e: PackageManager.NameNotFoundException) {
+            isInstalled = false
+            e.printStackTrace()
+        }
+        return isInstalled
     }
 
     private fun showConfirmDialog(option: String) {
@@ -172,6 +202,10 @@ class TransactionDetailActivity : AppCompatActivity() {
                 if("" + it.data!!["role"] == "admin" && model?.status == "Menunggu Verifikasi") {
                     binding?.acc?.visibility = View.VISIBLE
                     binding?.decline?.visibility = View.VISIBLE
+                }
+
+                if(model?.status == "Menunggu Verifikasi" && uid == model?.userId) {
+                    binding?.reminderBtn?.visibility = View.VISIBLE
                 }
             }
     }

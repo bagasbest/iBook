@@ -123,7 +123,7 @@ class AccountFragment : Fragment() {
         binding.textView11.setOnClickListener {
             val sendIntent = Intent()
             sendIntent.action = Intent.ACTION_SEND
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "Hai, jika kamu ingin membaca kumpulan novel terbaik, silahkan download aplikasi KoalaNovel di Playstore!")
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Hai, jika kamu ingin membaca kumpulan novel terbaik, silahkan download aplikasi KoalaNovel di Playstore!\n\nLink playstore: ------")
             sendIntent.type = "text/plain"
             startActivity(sendIntent)
         }
