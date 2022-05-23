@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.project.ibook",
+    "sha256_cert_fingerprints":
+    ["1C:55:59:A3:B0:93:A5:B8:A7:31:C9:54:B1:26:73:56:90:5C:EF:49:56:59:85:78:BE:40:74:52:DE:0F:E3:36"]
+  }
+}]
